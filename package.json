@@ -1,0 +1,30 @@
+{
+  "name": "rpg",
+  "version": "1.0.0",
+  "description": "My RPG text based derivitive",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KentMG/RPG.git"
+  },
+  "keywords": [
+    "RPG",
+    "Text-Based",
+    "UI"
+  ],
+  "author": "Kent Gunn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KentMG/RPG/issues"
+  },
+  "homepage": "https://github.com/KentMG/RPG#readme",
+  "dependencies": {
+    "electron": "^4.0.2",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  }
+}
