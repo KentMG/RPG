@@ -25,7 +25,7 @@ function boot(){
 
 ipcMain.on('Player:save',function(item){
 	item = util.inspect(item);
-	fs.writeFile('Save.json', JSON.stringify(item, null, 4), (err) => {
+	fs.writeFile('Save.json', item, (err) => {
 		console.log(err);
 	})
 })
