@@ -1,6 +1,8 @@
-const {app, BrowserWindow, Menu} = require('electron');
+const {app, BrowserWindow, Menu, ipcMain} = require('electron');
 const url = require('url');
 const path = require('path');
+const fs = require('fs');
+const util = require('util');
 
 let win;
 
@@ -21,12 +23,17 @@ function boot(){
 	Menu.setApplicationMenu(mainMenu);
 }
 
+ipcMain.on('Player:save',function(item){
+	item = util.inspect(item);
+	fs.writeFile('Save.json', JSON.stringify(item, null, 4), (err) => {
+		console.log(err);
+	})
+})
+
 const mainMenuTemplate = [
 	{
 		label:'File',
-		submenu:[{
-				label:'Save'
-			},
+		submenu:[
 			{
 				label:'Quit',
 				accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
@@ -40,7 +47,7 @@ const mainMenuTemplate = [
 
 //If mac, add empty object to menubar
 if(process.platform == 'darwin'){
-	mainMenuTemplate.unshift({});
+	mainMenuTemplate.unshift({label:''});
 }
 
 //Listen for app to be ready

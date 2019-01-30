@@ -21,6 +21,7 @@
 		<div class="playScreen">
 			<input type="button" value="View Inventory" class="playScreen" onclick="viewInventory()" style="display:none"/>
 			<input type="button" value="Enter Combat" class="playScreen" style="display:none"/>
+			<input type="button" value="Save" class="playScreen" style="display:none" onclick="saveFile()"/>
 		</div>
 		<div class="inventoryScreen" style="display:none">
 		<p class="inventoryScreen" style="display:none">Equipped Weapon:</p>
@@ -28,6 +29,7 @@
 		<input type="button" value="Update Equipment" class="inventoryScreen" style="display:none" onclick=changeWeapon(document.getElementById('weaponSelect').options[document.getElementById('weaponSelect').selectedIndex].value) ></input>
 		<input type="button" value="Back to Menu" class="inventoryScreen" style="display:none" onClick="toMenu()" />
 		</div>
+		<div class="combatScreen" style="display:none"></div>
 		
 	<script>
 		class Weapon{
@@ -37,6 +39,10 @@
 				this.TOHIT=toHit;
 			}
 		}
+
+		let fists= new Weapon("Fists",2,3);
+		let sword = new Weapon("Sword",3,3);
+
 		class Player{
 			
 			constructor(name, race, gender){
@@ -45,14 +51,16 @@
 				this.GENDER = gender;
 				this.XP=0;
 				this.HP=10;
-				this.WEAPON= new Weapon("Fists",2,3);
-				let sword = new Weapon("Sword",3,3);
-				this.INVENTORY=[this.WEAPON,sword];
+				this.WEAPON=fists;
+				this.INVENTORY=[fists,sword];
 			}
 		}
 
 		let Player1;
 		let Enemies = [];
+
+		const electron = require('electron');
+		const {ipcRenderer} = electron;
 
 		function makeCharacter(name, race, gender){
 			Player1 = new Player(name, race, gender);
@@ -111,6 +119,11 @@
 			}
 		}
 		
+		function saveFile(){
+			let item = Player1
+			ipcRenderer.send('Player:save', item);
+		}
+
 		function toMenu(){
 			clearScreen();
 			viewPlayScreen();

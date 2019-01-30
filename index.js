@@ -1,3 +1,5 @@
+import { ipcRenderer } from "electron";
+
 class Weapon{
 	constructor(name, damage, toHit){
 		this.NAME=name;
@@ -20,6 +22,8 @@ class Player{
 }
 let Player1;
 let Enemies = [];
+
+const {ipcRenderer} = electron;
 
 function makeCharacter(name, race, gender){
 	Player1 = new Player(name, race, gender);
@@ -60,7 +64,7 @@ function viewPlayScreen(){
 
 function viewInventory(){
 	var invScreen=document.getElementsByClassName('inventoryScreen');
-	fori=0;i<invScreen.length;i++){
+	for(i=0;i<invScreen.length;i++){
 		invScreen[i].style.display="";
 	}
 }
