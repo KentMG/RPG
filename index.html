@@ -17,6 +17,7 @@
 			<input type="text" id="playerGender" class="CharCreator"/>
 			<br class="CharCreator">
 			<input type="button" class="CharCreator" value="Create Character" onclick="makeCharacter(document.getElementById('playerName').value, document.getElementById('playerRace').value, document.getElementById('playerGender').value)"/>
+			<input type="button" class="CharCreator" value="Load from Save" onclick="loadFile()"/>
 		</div>
 		<!-----------------------------
 			Stats Screen
@@ -37,7 +38,7 @@
 		------------------------------->
 		<div class="inventoryScreen" style="display:none">
 		<p class="inventoryScreen" style="display:none">Equipped Weapon:</p>
-		<select class="inventoryScreen" id="weaponSelect" onchange=Player1.changeWeapon()></select>
+		<select class="inventoryScreen" id="weaponSelect" onchange="changeWeapon()"></select>
 		<input type="button" value="Back to Menu" class="inventoryScreen" style="display:none" onclick="toMenu()" />
 		</div>
 		<!-----------------------------

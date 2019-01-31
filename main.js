@@ -5,7 +5,6 @@ const fs = require('fs');
 const util = require('util');
 
 let win;
-
 //Start Window
 function boot(){
 	//Create newWindow
@@ -22,13 +21,6 @@ function boot(){
 	const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
 	Menu.setApplicationMenu(mainMenu);
 }
-
-ipcMain.on('Player:save',function(item){
-	item = util.inspect(item);
-	fs.writeFile('Save.json', item, (err) => {
-		console.log(err);
-	})
-})
 
 const mainMenuTemplate = [
 	{

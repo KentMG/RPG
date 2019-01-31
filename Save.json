@@ -1,10 +1,10 @@
 {
 	"Player": {
-		"NAME": "",
-		"RACE": "",
-		"GENDER": "",
+		"NAME": "Dillon",
+		"RACE": "Blood Elf",
+		"GENDER": "Male",
 		"XP": 0,
-		"HP": 10,
+		"HP": 1,
 		"WEAPON": [
 			{
 				"NAME": "Sword",

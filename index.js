@@ -1,30 +1,32 @@
-class Weapon{
-	constructor(name, damage, toHit){
-		this.NAME=name;
-		this.DAMAGE=damage;
-		this.TOHIT=toHit;
-	}
-}
-
-let fists= new Weapon("Fists",2,3);
-let sword = new Weapon("Sword",3,3);
-
-
-
+/************************************
+ * Variables
+************************************/
 let Player1;
 let Enemies = [];
+let Weapons = [];
 
+/************************************
+ * Requires
+************************************/
 const Player =  require('./Classes/Player').Player;
+const Weapon = require('./Classes/Weapon').Weapon;
 const util = require('util');
 const fs = require('fs');
 const electron = require('electron');
 const {ipcRenderer} = electron;
+
+/************************************
+ * Make Weapon List
+************************************/
+Weapons.push(new Weapon("Fists",2,3));
+Weapons.push(new Weapon("Sword",3,3));
+
 //Character Creation
 function makeCharacter(name, race, gender){
 	Player1 = new Player(name, race, gender);
-	Player1.WEAPON.push(fists);
-	Player1.INVENTORY.push(fists);
-	Player1.INVENTORY.push(sword);
+	Player1.WEAPON.push(Weapons[0]);
+	Player1.INVENTORY.push(Weapons[0]);
+	Player1.INVENTORY.push(Weapons[1]);
 	clearScreen();
 	viewCharStats();
 	viewPlayScreen();
@@ -67,6 +69,7 @@ function viewPlayScreen(){
 function viewCombat(){
 	clearScreen();
 	Enemies[0]=new Player("","","");
+	Enemies[0].WEAPON.push(Weapons[1]);
 	document.getElementById('enemyStats').innerHTML="";
 	document.getElementById('enderOfCombat').value="Run";
 	let battleScreen = document.getElementsByClassName('combatScreen');
@@ -95,10 +98,36 @@ function saveFile(){
 	});
 	//ipcRenderer.send('Player:save', JSON.stringify(toPush, null, 4));
 }
+//Load from JSON
+function loadFile(){
+	let save
+	fs.readFile('Save.json','utf-8',(err, data) => {
+		if(err){
+			throw err;
+		}
+		save=data
+		save = JSON.parse(save);
+		Player1 = new Player;
+		Player1.NAME=save.Player.NAME;
+		Player1.RACE=save.Player.RACE;
+		Player1.GENDER=save.Player.GENDER;
+		Player1.WEAPON=save.Player.WEAPON;
+		Player1.INVENTORY=save.Player.INVENTORY;
+		Player1.HP=save.Player.HP;
+		Player1.XP=save.Player.XP;
+		clearScreen();
+		viewCharStats();
+		viewPlayScreen();
+	});
+}
 //Go to Main Menu
 function toMenu(){
 	clearScreen();
 	viewPlayScreen();
+}
+//Change Players Weapon
+function changeWeapon(){
+	Player1.changeWeapon();
 }
 //Do 1 round of combat
 function Battle(player, enemy){

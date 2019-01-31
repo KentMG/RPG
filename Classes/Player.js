@@ -22,7 +22,7 @@ class Player{
 }	
 	//Attack
 	Attack(){
-		let damage = this.WEAPON.DAMAGE;
+		let damage = this.WEAPON[0].DAMAGE;
 		return damage;
 	}
 	//Take Damage
