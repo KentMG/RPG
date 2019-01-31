@@ -20,6 +20,15 @@ class Player{
 		this.WEAPON=fists;
 		this.INVENTORY=[fists,sword];
 	}
+		
+	//Attack
+	Attack(){
+		let damage = this.WEAPON.DAMAGE;
+		return damage;
+	}
+	GetHit(damage){
+		this.HP=this.HP-damage;
+	}
 }
 
 let Player1;
@@ -30,14 +39,14 @@ const util = require('util');
 const fs = require('fs');
 const electron = require('electron');
 const {ipcRenderer} = electron;
-
+//Character Creation
 function makeCharacter(name, race, gender){
 	Player1 = new Player(name, race, gender);
 	clearScreen();
 	viewCharStats();
 	viewPlayScreen();
 }
-
+//Empty Screen of all but Stats
 function clearScreen(){
 	let CharCreate = document.getElementsByClassName("CharCreator");
 	for(i=0;i<CharCreate.length;i++){
@@ -51,53 +60,86 @@ function clearScreen(){
 	for(i=0;i<invScreen.length;i++){
 		invScreen[i].style.display='none';
 	}
+	let comScreen = document.getElementsByClassName('combatScreen');
+	for(i=0;i<comScreen.length;i++){
+		comScreen[i].style.display='none';
+	}
 }
-
+//Show Stats
 function viewCharStats(){
-	let stats = document.getElementsByClassName('CharStats')
+	let stats = document.getElementsByClassName('CharStats');
 	for(i=0; i<stats.length;i++){
 		stats[i].style.display = '';
 		}
 	document.getElementById('pStats').innerHTML = ("You are a " + Player1.RACE + " " + Player1.GENDER + " named " + Player1.NAME + ".");
 }
-
+//Show Main Menu
 function viewPlayScreen(){
 	let playScreen = document.getElementsByClassName('playScreen');
 	for(i=0;i<playScreen.length;i++){
 		playScreen[i].style.display = "";
 	}
 }
-
+//Show Battle Screen
+function viewCombat(){
+	clearScreen();
+	Enemies[0]=new Player("","","");
+	document.getElementById('enemyStats').innerHTML="";
+	document.getElementById('enderOfCombat').value="Run";
+	let battleScreen = document.getElementsByClassName('combatScreen');
+	for(i=0;i<battleScreen.length;i++){
+		battleScreen[i].style.display = "";
+	}
+}
+//Show Inventory
 function viewInventory(){
 	clearScreen();
 	let weapSelect=document.getElementById('weaponSelect');
 	weapSelect.innerHTML="";
 	for(i=0;i<Player1.INVENTORY.length;i++){
-		weapSelect.innerHTML+="<option value='" + Player1.INVENTORY[i].NAME + "'>" + Player1.INVENTORY[i].NAME + "</option>";
+		weapSelect.innerHTML+="<option value=" + Player1.INVENTORY[i] + ">" + Player1.INVENTORY[i].NAME + "</option>";
 	}
 	let invScreen = document.getElementsByClassName('inventoryScreen');
 	for(i=0;i<invScreen.length;i++){
 		invScreen[i].style.display="";
 	}
 }
-
-function changeWeapon(weapName){
+//Change Equipped Weapon
+function changeWeapon(){
+	let weapon=document.getElementById('weaponSelect').options[document.getElementById('weaponSelect').selectedIndex].value;
 	for(i=0;i<Player1.INVENTORY.length;i++){
-		if(Player1.INVENTORY[i].NAME==weapName.NAME){
-			Player1.WEAPON=Player1.INVENTORY[i];
+		if(Player1.INVENTORY[i].NAME==weapon.NAME){
+			Player1.WEAPON=weapon;
 		}
 	}
 }
-
+//Save to JSON
 function saveFile(){
-	let item = {'Player' : Player1}
+	let item = {'Player' : Player1};
 	fs.writeFile('Save.json', JSON.stringify(item, null, '\t'), (err) => {
 		console.log(err);
-	})
+	});
 	//ipcRenderer.send('Player:save', JSON.stringify(toPush, null, 4));
 }
-
+//Go to Main Menu
 function toMenu(){
 	clearScreen();
 	viewPlayScreen();
+}
+//Do 1 round of combat
+function Battle(player, enemy){
+	if(player.HP>0){
+		enemy.GetHit(player.Attack());
+	}
+	if(enemy.HP>0){
+		player.GetHit(enemy.Attack());
+	}
+	if(enemy.HP<=0){
+		document.getElementById('enemyStats').innerHTML="You Win! Go to Menu to Reset.";
+		document.getElementById('enderOfCombat').value="Menu";
+	}
+	if(player.HP<=0){
+		document.getElementById('enemyStats').innerHTML="You Lost! Go to Menu to Reset.";
+		document.getElementById('enderOfCombat').value="Menu";
+	}
 }

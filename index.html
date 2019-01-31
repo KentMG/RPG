@@ -29,7 +29,7 @@
 		------------------------------->
 		<div class="playScreen">
 			<input type="button" value="View Inventory" class="playScreen" onclick="viewInventory()" style="display:none"/>
-			<input type="button" value="Enter Combat" class="playScreen" style="display:none"/>
+			<input type="button" value="Enter Combat" class="playScreen" style="display:none" onclick="viewCombat()"/>
 			<input type="button" value="Save" class="playScreen" style="display:none" onclick="saveFile()"/>
 		</div>
 		<!-----------------------------
@@ -37,15 +37,17 @@
 		------------------------------->
 		<div class="inventoryScreen" style="display:none">
 		<p class="inventoryScreen" style="display:none">Equipped Weapon:</p>
-		<select class="inventoryScreen" id="weaponSelect"></select>
-		<input type="button" value="Update Equipment" class="inventoryScreen" style="display:none" onclick=changeWeapon(document.getElementById('weaponSelect').options[document.getElementById('weaponSelect').selectedIndex].value) ></input>
-		<input type="button" value="Back to Menu" class="inventoryScreen" style="display:none" onClick="toMenu()" />
+		<select class="inventoryScreen" id="weaponSelect" onchange=changeWeapon()></select>
+		<input type="button" value="Update Equipment" class="inventoryScreen" style="display:none" ></input>
+		<input type="button" value="Back to Menu" class="inventoryScreen" style="display:none" onclick="toMenu()" />
 		</div>
 		<!-----------------------------
 			Combat Screen
 		------------------------------->
 		<div class="combatScreen" style="display:none">
-			
+			<p class="combatScreen" style="display:none" id="enemyStats"></p>
+			<input type="button" value="Attack" class="combatScreen" style="display:none" onclick="Battle(Player1, Enemies[0])"></input>
+			<input type="button" value="Run" id="enderOfCombat" class="combatScreen" style="display:none" onclick="toMenu()" />
 		</div>
 		
 	<script src="index.js">
