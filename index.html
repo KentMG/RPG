@@ -37,8 +37,7 @@
 		------------------------------->
 		<div class="inventoryScreen" style="display:none">
 		<p class="inventoryScreen" style="display:none">Equipped Weapon:</p>
-		<select class="inventoryScreen" id="weaponSelect" onchange=changeWeapon()></select>
-		<input type="button" value="Update Equipment" class="inventoryScreen" style="display:none" ></input>
+		<select class="inventoryScreen" id="weaponSelect" onchange=Player1.changeWeapon()></select>
 		<input type="button" value="Back to Menu" class="inventoryScreen" style="display:none" onclick="toMenu()" />
 		</div>
 		<!-----------------------------
@@ -50,8 +49,6 @@
 			<input type="button" value="Run" id="enderOfCombat" class="combatScreen" style="display:none" onclick="toMenu()" />
 		</div>
 		
-	<script src="index.js">
-		
-	</script>
-	</body>
+	<script src="index.js"></script>
+</body>
 </html>

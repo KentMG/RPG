@@ -9,32 +9,12 @@ class Weapon{
 let fists= new Weapon("Fists",2,3);
 let sword = new Weapon("Sword",3,3);
 
-class Player{
-	
-	constructor(name, race, gender){
-		this.NAME = name;
-		this.RACE = race;
-		this.GENDER = gender;
-		this.XP=0;
-		this.HP=10;
-		this.WEAPON=fists;
-		this.INVENTORY=[fists,sword];
-	}
-		
-	//Attack
-	Attack(){
-		let damage = this.WEAPON.DAMAGE;
-		return damage;
-	}
-	GetHit(damage){
-		this.HP=this.HP-damage;
-	}
-}
+
 
 let Player1;
 let Enemies = [];
 
-
+const Player =  require('./Classes/Player').Player;
 const util = require('util');
 const fs = require('fs');
 const electron = require('electron');
@@ -42,6 +22,9 @@ const {ipcRenderer} = electron;
 //Character Creation
 function makeCharacter(name, race, gender){
 	Player1 = new Player(name, race, gender);
+	Player1.WEAPON.push(fists);
+	Player1.INVENTORY.push(fists);
+	Player1.INVENTORY.push(sword);
 	clearScreen();
 	viewCharStats();
 	viewPlayScreen();
@@ -102,15 +85,6 @@ function viewInventory(){
 	let invScreen = document.getElementsByClassName('inventoryScreen');
 	for(i=0;i<invScreen.length;i++){
 		invScreen[i].style.display="";
-	}
-}
-//Change Equipped Weapon
-function changeWeapon(){
-	let weapon=document.getElementById('weaponSelect').options[document.getElementById('weaponSelect').selectedIndex].value;
-	for(i=0;i<Player1.INVENTORY.length;i++){
-		if(Player1.INVENTORY[i].NAME==weapon.NAME){
-			Player1.WEAPON=weapon;
-		}
 	}
 }
 //Save to JSON

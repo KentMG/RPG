@@ -4,12 +4,14 @@
 		"RACE": "",
 		"GENDER": "",
 		"XP": 0,
-		"HP": 2,
-		"WEAPON": {
-			"NAME": "Fists",
-			"DAMAGE": 2,
-			"TOHIT": 3
-		},
+		"HP": 10,
+		"WEAPON": [
+			{
+				"NAME": "Sword",
+				"DAMAGE": 3,
+				"TOHIT": 3
+			}
+		],
 		"INVENTORY": [
 			{
 				"NAME": "Fists",
