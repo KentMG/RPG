@@ -134,15 +134,16 @@ function createMap(map){
 	document.getElementById('Board').style.display="";
 	for(i=0;i<BoardHeight;i++){
 		for(j=0;j<BoardWidth;j++){
-			Board.innerHTML+=("<img class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;background:url(./Images/map.jpg);'/>");
+			Board.innerHTML+=("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;background:url(./Images/map.jpg);'/>");
 			console.log(i + j);
 		}
 	}
-	for(i=0;i<21;i++){
+	for(i=8;i<30;i++){
 		for(j=0;j<21;j++){
 			document.getElementById(i + "-" + j).style.display = "";
 		}
 	}
+	document.getElementById(Player1.Y + '-' + Player1.X).src='./Images/Player.png'
 }
 
 /**********************************
@@ -223,18 +224,33 @@ function Battle(player, enemy){
 function movePlayer(e) {
     let map = document.getElementById('Board');
     if (e.key == 'w') {
-		console.log("hi")
         if (Player1.Y - 1 >= 0) {
             Player1.Y -= 1;
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
-            document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = document.getElementById(Player1.Y + 1 + '-' + Player1.X).style.background.url;
+            document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
-            for (var i = Player1.x - 10; i < Player1.x + 10; i++) {
+            for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
                 if (i >= 0 && Player1.Y - 10 >= 0 && i < mapSize[1]) {
-                    document.getElementById(Player1.y - 10 + '-' + i).style.display = '';
-                    if (Player1.Y + 10 < mapSize[0]) {
-                        document.getElementById(Player1.y + 10 + '-' + i).style.display = 'none';
-                    }
+                    document.getElementById(Player1.Y - 10 + '-' + i).style.display = '';
+					if (i >= 0 && Player1.Y + 11 < mapSize[0] && i < mapSize[1]) {
+						document.getElementById(Player1.Y + 11 + '-' + i).style.display = 'none';
+					}
+                }
+            }
+        }
+    }
+    if (e.key == 's') {
+        if (Player1.Y + 1 <mapSize[0]) {
+            Player1.Y += 1;
+            document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
+            document.getElementById(Player1.Y - 1 + '-' + Player1.X).src = "./Images/transparent.png";
+
+            for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
+                if (i >= 0 && Player1.Y + 10 < mapSize[0] && i < mapSize[1]) {
+                    document.getElementById(Player1.Y + 10 + '-' + i).style.display = '';
+					if (i >= 0 && Player1.Y - 11 >= 0 && i < mapSize[1]) {
+						document.getElementById(Player1.Y - 11 + '-' + i).style.display = 'none';
+					}
                 }
             }
         }
