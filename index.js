@@ -1,5 +1,5 @@
 /********************************************************
- * Coded By: Kent Gunn
+ * Coded By: Kent Gunn and John McDaniel
  * Date: January 2019
 ********************************************************/
 
@@ -20,6 +20,7 @@ const Weapon = require('./Classes/Weapon').Weapon;
 const util = require('util');
 const fs = require('fs');
 const electron = require('electron');
+var getPixels = require("get-pixels")
 const {ipcRenderer} = electron;
 
 /************************************
@@ -27,6 +28,16 @@ const {ipcRenderer} = electron;
 ************************************/
 document.addEventListener("keypress", function(e){
 	movePlayer(e);
+})
+/************************************
+ * map setter
+************************************/
+getPixels("./Images/map.png", function(err, pixels){
+	if(err){
+		console.log(err);
+		return;
+	}
+	console.log(pixels)
 })
 
 /************************************

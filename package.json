@@ -22,8 +22,9 @@
   },
   "homepage": "https://github.com/KentMG/RPG#readme",
   "dependencies": {
-    "electron": "^4.0.2",
+    "electron": "^4.0.3",
     "fs": "0.0.1-security",
+    "get-pixels": "^3.3.2",
     "path": "^0.12.7",
     "url": "^0.11.0"
   }
