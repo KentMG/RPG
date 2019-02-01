@@ -123,7 +123,7 @@ function createMap(map){
 	document.getElementById('Board').style.display="";
 	for(i=0;i<BoardHeight;i++){
 		for(j=0;j<BoardWidth;j++){
-			Board.innerHTML+=("<img class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;background:url(./Images/map.jpg);'/>");
+			Board.innerHTML+=("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;background:url(./Images/map.jpg);'/>");
 			console.log(i + j);
 		}
 	}
