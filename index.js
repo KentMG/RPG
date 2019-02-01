@@ -216,7 +216,7 @@ function movePlayer(e) {
         if (Player1.Y - 1 >= 0) {
             Player1.Y -= 1;
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
-            document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images.transparent.png";
+            document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
             for (var i = Player1.x - 10; i < Player1.x + 10; i++) {
                 if (i >= 0 && Player1.Y - 10 >= 0 && i < mapSize[1]) {
