@@ -3,5 +3,3 @@ It saves the player to a json file.
 You can load from a json file.
 Bugs:
 	No known bugs
-Features:
-	There is no way to heal currently(will be added in the future)
