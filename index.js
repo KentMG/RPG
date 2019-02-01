@@ -127,7 +127,7 @@ function createMap(map){
 			console.log(i + j);
 		}
 	}
-	for(i=0;i<21;i++){
+	for(i=8;i<30;i++){
 		for(j=0;j<21;j++){
 			document.getElementById(i + "-" + j).style.display = "";
 		}
@@ -218,12 +218,12 @@ function movePlayer(e) {
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
             document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
-            for (var i = Player1.x - 10; i < Player1.x + 10; i++) {
+            for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
                 if (i >= 0 && Player1.Y - 10 >= 0 && i < mapSize[1]) {
-                    document.getElementById(Player1.y - 10 + '-' + i).style.display = '';
-                    if (Player1.Y + 10 < mapSize[0]) {
-                        document.getElementById(Player1.y + 10 + '-' + i).style.display = 'none';
-                    }
+                    document.getElementById(Player1.Y - 10 + '-' + i).style.display = '';
+					if (i >= 0 && Player1.Y + 11 < mapSize[0] && i < mapSize[1]) {
+						document.getElementById(Player1.Y + 11 + '-' + i).style.display = 'none';
+					}
                 }
             }
         }
@@ -234,12 +234,12 @@ function movePlayer(e) {
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
             document.getElementById(Player1.Y - 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
-            for (var i = Player1.x - 10; i < Player1.x + 10; i++) {
+            for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
                 if (i >= 0 && Player1.Y + 10 < mapSize[0] && i < mapSize[1]) {
-                    document.getElementById(Player1.y + 10 + '-' + i).style.display = '';
-                    if (Player1.Y + 10 >= 0) {
-                        document.getElementById(Player1.y - 10 + '-' + i).style.display = 'none';
-                    }
+                    document.getElementById(Player1.Y + 10 + '-' + i).style.display = '';
+					if (i >= 0 && Player1.Y - 11 >= 0 && i < mapSize[1]) {
+						document.getElementById(Player1.Y - 11 + '-' + i).style.display = 'none';
+					}
                 }
             }
         }

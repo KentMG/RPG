@@ -17,8 +17,8 @@ class Player{
 		this.MaxHP=10;
 		this.WEAPON=[];
 		this.INVENTORY=[];
-		this.X=11;
-		this.Y=11;
+		this.X=10;
+		this.Y=29;
 	}
 	//Change Equipped Weapon
 	changeWeapon(){
