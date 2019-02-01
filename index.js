@@ -116,7 +116,7 @@ function createMap(map){
 	document.getElementById('Board').style.display="";
 	for(i=0;i<BoardHeight;i++){
 		for(j=0;j<BoardWidth;j++){
-			Board.innerHTML+=("<img src='./Images/map.jpg' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
+			Board.innerHTML+=("<img background:url(/Images/map.jpg) class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
 			console.log(i + j);
 		}
 	}
