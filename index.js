@@ -132,6 +132,7 @@ function createMap(map){
 			document.getElementById(i + "-" + j).style.display = "";
 		}
 	}
+	document.getElementById(Player1.Y + '-' + Player1.X).src='./Images/Player.png'
 }
 
 /**********************************
@@ -212,7 +213,6 @@ function Battle(player, enemy){
 function movePlayer(e) {
     let map = document.getElementById('Board');
     if (e.key == 'w') {
-		console.log("hi")
         if (Player1.Y - 1 >= 0) {
             Player1.Y -= 1;
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
@@ -223,6 +223,22 @@ function movePlayer(e) {
                     document.getElementById(Player1.y - 10 + '-' + i).style.display = '';
                     if (Player1.Y + 10 < mapSize[0]) {
                         document.getElementById(Player1.y + 10 + '-' + i).style.display = 'none';
+                    }
+                }
+            }
+        }
+    }
+    if (e.key == 's') {
+        if (Player1.Y + 1 <mapSize[0]) {
+            Player1.Y += 1;
+            document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
+            document.getElementById(Player1.Y - 1 + '-' + Player1.X).src = "./Images/transparent.png";
+
+            for (var i = Player1.x - 10; i < Player1.x + 10; i++) {
+                if (i >= 0 && Player1.Y + 10 < mapSize[0] && i < mapSize[1]) {
+                    document.getElementById(Player1.y + 10 + '-' + i).style.display = '';
+                    if (Player1.Y + 10 >= 0) {
+                        document.getElementById(Player1.y - 10 + '-' + i).style.display = 'none';
                     }
                 }
             }
