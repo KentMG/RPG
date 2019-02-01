@@ -1,10 +1,13 @@
 {
 	"Player": {
-		"NAME": "Dillon",
-		"RACE": "Blood Elf",
-		"GENDER": "Male",
+		"NAME": "alec",
+		"RACE": "white",
+		"GENDER": "male",
+		"LEVEL": 1,
 		"XP": 0,
-		"HP": 1,
+		"HP": 10,
+		"MANA": 10,
+		"MaxHP": 10,
 		"WEAPON": [
 			{
 				"NAME": "Sword",

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link href="./index.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<!-----------------------------
 			Character Creation Screen
-		------------------------------->
+		------------------------------>
 		<div id="CharCreator" class="CharCreator">
 			<p class="CharCreator">Name: </p>
 			<input type="text" id="playerName" class="CharCreator"/>
@@ -21,21 +22,27 @@
 		</div>
 		<!-----------------------------
 			Stats Screen
-		------------------------------->
+		------------------------------>
 		<div class="CharStats" style="display:none">
 			<p id="pStats" class="CharStats" style="display:none"></p>
+			<p id="pResources" class="CharStats" style="display:none">HP:10 Mana:10 Level:1</p>
 		</div>
 		<!-----------------------------
-			Play Screen
-		------------------------------->
+			Map
+		------------------------------>
+		<div class="Board" id="Board" style="display:none"></div>
+		<!-----------------------------
+			Main Menu Screen
+		------------------------------>
 		<div class="playScreen">
 			<input type="button" value="View Inventory" class="playScreen" onclick="viewInventory()" style="display:none"/>
 			<input type="button" value="Enter Combat" class="playScreen" style="display:none" onclick="viewCombat()"/>
+			<input type="button" value="Heal" class="playScreen" style="display:none" onclick="Heal(10)"/>
 			<input type="button" value="Save" class="playScreen" style="display:none" onclick="saveFile()"/>
 		</div>
 		<!-----------------------------
 			Inventory Screen
-		------------------------------->
+		------------------------------>
 		<div class="inventoryScreen" style="display:none">
 		<p class="inventoryScreen" style="display:none">Equipped Weapon:</p>
 		<select class="inventoryScreen" id="weaponSelect" onchange="changeWeapon()"></select>
@@ -43,7 +50,7 @@
 		</div>
 		<!-----------------------------
 			Combat Screen
-		------------------------------->
+		------------------------------>
 		<div class="combatScreen" style="display:none">
 			<p class="combatScreen" style="display:none" id="enemyStats"></p>
 			<input type="button" value="Attack" class="combatScreen" style="display:none" onclick="Battle(Player1, Enemies[0])"></input>

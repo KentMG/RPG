@@ -1,3 +1,9 @@
+/********************************************************
+ * Coded By: Kent Gunn
+ * Date: January 2019
+********************************************************/
+
+
 const {app, BrowserWindow, Menu, ipcMain} = require('electron');
 const url = require('url');
 const path = require('path');

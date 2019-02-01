@@ -1,3 +1,9 @@
+/********************************************************
+ * Coded By: Kent Gunn
+ * Date: January 2019
+********************************************************/
+
+
 /************************************
  * Variables
 ************************************/
@@ -21,6 +27,9 @@ const {ipcRenderer} = electron;
 Weapons.push(new Weapon("Fists",2,3));
 Weapons.push(new Weapon("Sword",3,3));
 
+/************************************
+ * Screens
+************************************/
 //Character Creation
 function makeCharacter(name, race, gender){
 	Player1 = new Player(name, race, gender);
@@ -29,6 +38,7 @@ function makeCharacter(name, race, gender){
 	Player1.INVENTORY.push(Weapons[1]);
 	clearScreen();
 	viewCharStats();
+	getMap();
 	viewPlayScreen();
 }
 //Empty Screen of all but Stats
@@ -90,6 +100,36 @@ function viewInventory(){
 		invScreen[i].style.display="";
 	}
 }
+//Go to Main Menu
+function toMenu(){
+	clearScreen();
+	viewPlayScreen();
+}
+//Build the Map
+function createMap(map){
+	let Board=document.getElementById('Board');
+	let BoardWidth=map.Size[0];
+	let BoardHeight=map.Size[1];
+	Board.style.width=map.Size[0]*30;
+	Board.style.height=map.Size[1]*30;
+	let five=5;
+	document.getElementById('Board').style.display="";
+	for(i=0;i<BoardHeight;i++){
+		for(j=0;j<BoardWidth;j++){
+			Board.innerHTML+=("<img src='./Images/map.jpg' class='Tile' id='" + i + "-" + j + "' style='display:none width:30px height:30px'/>");
+			console.log(i + j);
+		}
+	}
+	for(i=0;i<five;i++){
+		for(j=0;j<five;j++){
+			document.getElementById(i + "-" + j).style.display = "";
+		}
+	}
+}
+
+/**********************************
+ * Oustide File Manipulation
+**********************************/
 //Save to JSON
 function saveFile(){
 	let item = {'Player' : Player1};
@@ -105,8 +145,7 @@ function loadFile(){
 		if(err){
 			throw err;
 		}
-		save=data
-		save = JSON.parse(save);
+		save = JSON.parse(data);
 		Player1 = new Player;
 		Player1.NAME=save.Player.NAME;
 		Player1.RACE=save.Player.RACE;
@@ -120,15 +159,31 @@ function loadFile(){
 		viewPlayScreen();
 	});
 }
-//Go to Main Menu
-function toMenu(){
-	clearScreen();
-	viewPlayScreen();
+function getMap(){
+	fs.readFile('Map.json','utf-8',(err, data) => {
+		if(err){
+			throw err;
+		}
+		createMap(JSON.parse(data));
+	});
 }
+
+/*********************************
+ * Do Something to the Player
+*********************************/
 //Change Players Weapon
 function changeWeapon(){
 	Player1.changeWeapon();
 }
+//Heal
+function Heal(amount){
+	Player1.Heal(amount);
+	document.getElementById('pResources').innerHTML = Player1.getResources();
+}
+
+/****************************************
+ * Player Interactions with Environment
+****************************************/
 //Do 1 round of combat
 function Battle(player, enemy){
 	if(player.HP>0){
@@ -136,6 +191,7 @@ function Battle(player, enemy){
 	}
 	if(enemy.HP>0){
 		player.GetHit(enemy.Attack());
+		document.getElementById('pResources').innerHTML = player.getResources();
 	}
 	if(enemy.HP<=0){
 		document.getElementById('enemyStats').innerHTML="You Win! Go to Menu to Reset.";

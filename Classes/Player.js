@@ -1,11 +1,20 @@
+/********************************************************
+ * Coded By: Kent Gunn
+ * Date: January 2019
+********************************************************/
+
+
 class Player{
 	
 	constructor(name, race, gender){
 		this.NAME = name;
 		this.RACE = race;
 		this.GENDER = gender;
+		this.LEVEL = 1;
 		this.XP=0;
 		this.HP=10;
+		this.MANA=10;
+		this.MaxHP=10;
 		this.WEAPON=[];
 		this.INVENTORY=[];
 	}
@@ -28,6 +37,17 @@ class Player{
 	//Take Damage
 	GetHit(damage){
 		this.HP=this.HP-damage;
+	}
+	//Recover up to max health
+	Heal(amount){
+		this.HP+=amount;
+		if(this.HP > this.MaxHP){
+			this.HP=this.MaxHP;
+		}
+	}
+	getResources(){
+		let resources = "HP:" + this.HP + " Mana:" + this.MANA + " Level:" + this.LEVEL;
+		return resources;
 	}
 }
 

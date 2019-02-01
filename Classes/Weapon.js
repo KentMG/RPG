@@ -1,3 +1,9 @@
+/********************************************************
+ * Coded By: Kent Gunn
+ * Date: January 2019
+********************************************************/
+
+
 class Weapon{
 	constructor(name, damage, toHit){
 		this.NAME=name;
