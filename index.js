@@ -23,6 +23,13 @@ const electron = require('electron');
 const {ipcRenderer} = electron;
 
 /************************************
+ * Event Listeners
+************************************/
+document.addEventListener("keypress", function(e){
+	movePlayer(e);
+})
+
+/************************************
  * Make Weapon List
 ************************************/
 Weapons.push(new Weapon("Fists",2,3));
@@ -116,7 +123,7 @@ function createMap(map){
 	document.getElementById('Board').style.display="";
 	for(i=0;i<BoardHeight;i++){
 		for(j=0;j<BoardWidth;j++){
-			Board.innerHTML+=("<img background:url(/Images/map.jpg) class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
+			Board.innerHTML+=("<img class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;background:url(./Images/map.jpg);'/>");
 			console.log(i + j);
 		}
 	}
@@ -201,4 +208,24 @@ function Battle(player, enemy){
 		document.getElementById('enemyStats').innerHTML="You Lost! Go to Menu to Reset.";
 		document.getElementById('enderOfCombat').value="Menu";
 	}
+}
+function movePlayer(e) {
+    let map = document.getElementById('Board');
+    if (e.key == 'w') {
+		console.log("hi")
+        if (Player1.Y - 1 >= 0) {
+            Player1.Y -= 1;
+            document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
+            document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = document.getElementById(Player1.Y + 1 + '-' + Player1.X).style.background.url;
+
+            for (var i = Player1.x - 10; i < Player1.x + 10; i++) {
+                if (i >= 0 && Player1.Y - 10 >= 0 && i < mapSize[1]) {
+                    document.getElementById(Player1.y - 10 + '-' + i).style.display = '';
+                    if (Player1.Y + 10 < mapSize[0]) {
+                        document.getElementById(Player1.y + 10 + '-' + i).style.display = 'none';
+                    }
+                }
+            }
+        }
+    }
 }
