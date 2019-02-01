@@ -10,6 +10,7 @@
 let Player1;
 let Enemies = [];
 let Weapons = [];
+let mapSize=[];
 
 /************************************
  * Requires
@@ -108,20 +109,19 @@ function toMenu(){
 //Build the Map
 function createMap(map){
 	let Board=document.getElementById('Board');
+	mapSize.push(map.Size[0]);
+	mapSize.push(map.Size[1]);
 	let BoardWidth=map.Size[0];
 	let BoardHeight=map.Size[1];
-	Board.style.width=map.Size[0]*30;
-	Board.style.height=map.Size[1]*30;
-	let five=5;
 	document.getElementById('Board').style.display="";
 	for(i=0;i<BoardHeight;i++){
 		for(j=0;j<BoardWidth;j++){
-			Board.innerHTML+=("<img src='./Images/map.jpg' class='Tile' id='" + i + "-" + j + "' style='display:none width:30px height:30px'/>");
+			Board.innerHTML+=("<img src='./Images/map.jpg' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
 			console.log(i + j);
 		}
 	}
-	for(i=0;i<five;i++){
-		for(j=0;j<five;j++){
+	for(i=0;i<21;i++){
+		for(j=0;j<21;j++){
 			document.getElementById(i + "-" + j).style.display = "";
 		}
 	}
