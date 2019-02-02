@@ -210,6 +210,7 @@ function Battle(player, enemy){
 		document.getElementById('enderOfCombat').value="Menu";
 	}
 }
+//Move the Player
 function movePlayer(e) {
     let map = document.getElementById('Board');
     if (e.key == 'w') {
@@ -218,7 +219,7 @@ function movePlayer(e) {
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
             document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
-            for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
+            for (var i = Player1.X - 10; i < Player1.X + 11; i++) {
                 if (i >= 0 && Player1.Y - 10 >= 0 && i < mapSize[1]) {
                     document.getElementById(Player1.Y - 10 + '-' + i).style.display = '';
 					if (i >= 0 && Player1.Y + 11 < mapSize[0] && i < mapSize[1]) {
@@ -234,7 +235,7 @@ function movePlayer(e) {
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
             document.getElementById(Player1.Y - 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
-            for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
+            for (var i = Player1.X - 10; i < Player1.X + 11; i++) {
                 if (i >= 0 && Player1.Y + 10 < mapSize[0] && i < mapSize[1]) {
                     document.getElementById(Player1.Y + 10 + '-' + i).style.display = '';
 					if (i >= 0 && Player1.Y - 11 >= 0 && i < mapSize[1]) {
