@@ -13,6 +13,7 @@ let Enemies = [];
 let Weapons = [];
 let mapSize = [];
 let map;
+let BoardOverlay = [];
 
 /************************************
  * Requires
@@ -159,14 +160,21 @@ function createMap() {
 			Board.innerHTML += ("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
 		}
 	}
+	//Color Tiles
+	let rowContent = [];
 	for (var i = 0; i < map.data.length; i += 4) {
 		if (i / 4 % mapSize[0] == 0 && i != 0) {
+			BoardOverlay.push(rowContent);
 			whichRue++;
+			rowContent = [];
 		}
-
+		//Border
 		if (map.data[i] < 3 && map.data[i + 1] < 3 && map.data[i + 2] < 3) {
-			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/border.png)'
-		} else if (map.data[i] < 3 && map.data[i + 1] < 3 && (map.data[i + 2] >= 251 && map.data[i + 2] <= 255)) {
+			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/border.png)';
+			rowContent.push(0);
+		}
+		//Water
+		else if (map.data[i] < 3 && map.data[i + 1] < 3 && (map.data[i + 2] >= 251 && map.data[i + 2] <= 255)) {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ocean.png)'
 		} else if (map.data[i] < 23 && map.data[i] > 13 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 9) {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/grass.png)'
@@ -177,8 +185,10 @@ function createMap() {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/door.png)'
 		}else{
 			console.log(i)
+			rowContent.push(2);
 		}
 	}
+	//Show map around Player
 	if (Player1.X - 10 < 0) {
 		for (var i = 0; i < 21; i++) {
 			if (Player1.Y - 10 < 0) {
@@ -198,7 +208,7 @@ function createMap() {
 			}
 		}
 	} else if (Player1.X + 10 >= mapSize[1]) {
-		for (var i = mapSize[0]-21; i < mapSize[0]; i++) {
+		for (var i = mapSize[0] - 21; i < mapSize[0]; i++) {
 			if (Player1.Y - 10 < 0) {
 				for (var j = 0; j < 21; j++) {
 					document.getElementById(j + '-' + i).style.display = '';
@@ -216,7 +226,7 @@ function createMap() {
 			}
 		}
 	} else if (Player1.Y + 10 >= mapSize[0]) {
-		for (var i = mapSize[1]-21; i < mapSize[1]; i++) {
+		for (var i = mapSize[1] - 21; i < mapSize[1]; i++) {
 			if (Player1.X - 10 < 0) {
 				for (var j = 0; j < 21; j++) {
 					document.getElementById(i + '-' + j).style.display = '';
@@ -335,7 +345,7 @@ function Battle(player, enemy) {
 function movePlayer(e) {
 	let map = document.getElementById('Board');
 	if (e.key == 'w') {
-		if (Player1.Y - 1 >= 0) {
+		if (Player1.Y - 1 >= 0 && BoardOverlay[Player1.Y - 1][Player.X] != 0) {
 			Player1.Y -= 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/player.png";
 			document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
@@ -371,7 +381,7 @@ function movePlayer(e) {
 		}
 	}
 	if (e.key == 's') {
-		if (Player1.Y + 1 < mapSize[0]) {
+		if (Player1.Y + 1 < mapSize[0] && BoardOverlay[Player1.Y + 1][Player.X] != 0) {
 			Player1.Y += 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/player.png";
 			document.getElementById(Player1.Y - 1 + '-' + Player1.X).src = "./Images/transparent.png";
@@ -407,7 +417,7 @@ function movePlayer(e) {
 		}
 	}
 	if (e.key == 'd') {
-		if (Player1.X + 1 < mapSize[1]) {
+		if (Player1.X + 1 < mapSize[1] && BoardOverlay[Player1.Y][Player.X + 1] != 0) {
 			Player1.X += 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
 			document.getElementById(Player1.Y + '-' + (Player1.X - 1)).src = "./Images/transparent.png";
@@ -443,7 +453,7 @@ function movePlayer(e) {
 		}
 	}
 	if (e.key == 'a') {
-		if (Player1.X - 1 >= 0) {
+		if (Player1.X - 1 >= 0 && BoardOverlay[Player1.Y][Player.X - 1] != 0) {
 			Player1.X -= 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
 			document.getElementById(Player1.Y + '-' + (Player1.X + 1)).src = "./Images/transparent.png";
