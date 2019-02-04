@@ -18,7 +18,7 @@ class Player{
 		this.WEAPON=[];
 		this.INVENTORY=[];
 		this.X=10;
-		this.Y=29;
+		this.Y=10;
 	}
 	//Change Equipped Weapon
 	changeWeapon(){
