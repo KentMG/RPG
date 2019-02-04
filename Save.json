@@ -1,8 +1,8 @@
 {
 	"Player": {
-		"NAME": "alec",
-		"RACE": "white",
-		"GENDER": "male",
+		"NAME": "Nicole",
+		"RACE": "Code Guru",
+		"GENDER": "Coder",
 		"LEVEL": 1,
 		"XP": 0,
 		"HP": 10,
@@ -10,8 +10,8 @@
 		"MaxHP": 10,
 		"WEAPON": [
 			{
-				"NAME": "Sword",
-				"DAMAGE": 3,
+				"NAME": "Fists",
+				"DAMAGE": 2,
 				"TOHIT": 3
 			}
 		],
