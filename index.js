@@ -47,7 +47,7 @@ getPixels("./Images/map.png", function (err, pixels) {
 	map = pixels;
 })
 
-getPixels("./Images/room" + i +".png", function (err, pixels) {
+getPixels("./Images/room" + i + ".png", function (err, pixels) {
 	if (err) {
 		console.log(err);
 		return;
@@ -175,20 +175,30 @@ function createMap() {
 		}
 		//Water
 		else if (map.data[i] < 3 && map.data[i + 1] < 3 && (map.data[i + 2] >= 251 && map.data[i + 2] <= 255)) {
-			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ocean.png)'
-		} else if (map.data[i] < 23 && map.data[i] > 13 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 9) {
-			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/grass.png)'
-		}else if (map.data[i] < 133 && map.data[i] > 123 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 133 && map.data[i + 2] > 123) {
-			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ground.png)'
-		}else if (map.data[i] >250 && map.data[i + 1] > 250 && map.data[i + 2] < 110 && map.data[i + 2] > 95) {
-			console.log("agein agein!!!!")
-			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/door.png)'
-		}else{
-			console.log(i)
+			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ocean.png)';
+		}
+		//Grass
+		else if (map.data[i] < 23 && map.data[i] > 13 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 9) {
+			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/grass.png)';
 			rowContent.push(2);
 		}
+		//Ground
+		else if (map.data[i] < 133 && map.data[i] > 123 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 133 && map.data[i + 2] > 123) {
+			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ground.png)';
+			rowContent.push(2);
+		}
+		//Door
+		else if (map.data[i] > 250 && map.data[i + 1] > 250 && map.data[i + 2] < 110 && map.data[i + 2] > 95) {
+			console.log("agein agein!!!!")
+			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/door.png)';
+			rowContent.push(3);
+		} else {
+			console.log(i)
+		}
 	}
-	//Show map around Player
+}
+//Show map around Player
+function showMapAroundPlayer() {
 	if (Player1.X - 10 < 0) {
 		for (var i = 0; i < 21; i++) {
 			if (Player1.Y - 10 < 0) {
@@ -345,7 +355,7 @@ function Battle(player, enemy) {
 function movePlayer(e) {
 	let map = document.getElementById('Board');
 	if (e.key == 'w') {
-		if (Player1.Y - 1 >= 0 && BoardOverlay[Player1.Y - 1][Player.X] != 0) {
+		if (Player1.Y - 1 >= 0 && BoardOverlay[Player1.Y - 1][Player1.X] != 0) {
 			Player1.Y -= 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/player.png";
 			document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
@@ -381,7 +391,7 @@ function movePlayer(e) {
 		}
 	}
 	if (e.key == 's') {
-		if (Player1.Y + 1 < mapSize[0] && BoardOverlay[Player1.Y + 1][Player.X] != 0) {
+		if (Player1.Y + 1 < mapSize[0] && BoardOverlay[Player1.Y + 1][Player1.X] != 0) {
 			Player1.Y += 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/player.png";
 			document.getElementById(Player1.Y - 1 + '-' + Player1.X).src = "./Images/transparent.png";
@@ -417,7 +427,7 @@ function movePlayer(e) {
 		}
 	}
 	if (e.key == 'd') {
-		if (Player1.X + 1 < mapSize[1] && BoardOverlay[Player1.Y][Player.X + 1] != 0) {
+		if (Player1.X + 1 < mapSize[1] && BoardOverlay[Player1.Y][Player1.X + 1] != 0) {
 			Player1.X += 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
 			document.getElementById(Player1.Y + '-' + (Player1.X - 1)).src = "./Images/transparent.png";
@@ -453,7 +463,7 @@ function movePlayer(e) {
 		}
 	}
 	if (e.key == 'a') {
-		if (Player1.X - 1 >= 0 && BoardOverlay[Player1.Y][Player.X - 1] != 0) {
+		if (Player1.X - 1 >= 0 && BoardOverlay[Player1.Y][Player1.X - 1] != 0) {
 			Player1.X -= 1;
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
 			document.getElementById(Player1.Y + '-' + (Player1.X + 1)).src = "./Images/transparent.png";
