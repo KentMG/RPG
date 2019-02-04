@@ -124,7 +124,6 @@ function createMap(map){
 	for(i=0;i<BoardHeight;i++){
 		for(j=0;j<BoardWidth;j++){
 			Board.innerHTML+=("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;background:url(./Images/map.jpg);'/>");
-			console.log(i + j);
 		}
 	}
 	for(i=8;i<30;i++){
@@ -249,13 +248,13 @@ function movePlayer(e) {
         if (Player1.X + 1 <mapSize[1]) {
             Player1.X += 1;
             document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
-            document.getElementById(Player1.Y + '-' + Player1.X - 1).src = "./Images/transparent.png";
+            document.getElementById(Player1.Y + '-' + (Player1.X - 1)).src = "./Images/transparent.png";
 
             for (var i = Player1.Y - 10; i < Player1.Y + 11; i++) {
                 if (i >= 0 && Player1.X + 10 < mapSize[1] && i < mapSize[0]) {
-                    document.getElementById(i + '-' + Player1.X + 10).style.display = '';
+                    document.getElementById(i + '-' + (Player1.X + 10)).style.display = '';
 					if (i >= 0 && Player1.X - 11 >= 0 && i < mapSize[0]) {
-						document.getElementById(i + '-' + Player.X - 11).style.display = 'none';
+						document.getElementById(i + '-' + (Player.X - 11)).style.display = 'none';
 					}
                 }
             }
