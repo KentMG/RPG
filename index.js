@@ -11,6 +11,7 @@ let Player1;
 let Enemies = [];
 let Weapons = [];
 let mapSize=[];
+let map;
 
 /************************************
  * Requires
@@ -38,6 +39,10 @@ getPixels("./Images/map.png", function(err, pixels){
 		return;
 	}
 	console.log(pixels)
+	mapSize.push(pixels.shape[1])
+	mapSize.push(pixels.shape[0])
+	console.log(mapSize)
+	map = pixels;
 })
 
 /************************************
@@ -57,7 +62,7 @@ function makeCharacter(name, race, gender){
 	Player1.INVENTORY.push(Weapons[1]);
 	clearScreen();
 	viewCharStats();
-	getMap();
+	createMap();
 	viewPlayScreen();
 }
 //Empty Screen of all but Stats
@@ -125,17 +130,33 @@ function toMenu(){
 	viewPlayScreen();
 }
 //Build the Map
-function createMap(map){
+function createMap(){
 	let Board=document.getElementById('Board');
-	mapSize.push(map.Size[0]);
-	mapSize.push(map.Size[1]);
-	let BoardWidth=map.Size[0];
-	let BoardHeight=map.Size[1];
+	let whichRue = 0;
+	//mapSize.push(map.Size[0]);
+	//mapSize.push(map.Size[1]);
+	let BoardWidth=mapSize[0];
+	let BoardHeight=mapSize[1];
 	document.getElementById('Board').style.display="";
 	for(i=0;i<BoardHeight;i++){
 		for(j=0;j<BoardWidth;j++){
-			Board.innerHTML+=("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;background:url(./Images/map.jpg);'/>");
+			Board.innerHTML+=("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
 			console.log(i + j);
+		}
+	}
+	for(var i = 0; i< map.data.length; i+=4){
+		if(i/4 %mapSize[0] == 0 && i != 0){
+			whichRue++;
+		}
+		
+		if(map.data[i] < 3 && map.data[i+1] < 3 && map.data[i+2] < 3){
+			document.getElementById(whichRue + "-" + (i/4 % 50)).style.background = 'url(./Images/border.png)'
+		}else if(map.data[i] < 3 && map.data[i+1] < 3 && (map.data[i+2] >= 251 && map.data[i+2] <= 255)){
+			document.getElementById(whichRue + "-" + (i/4 % 50)).style.background = 'url(./Images/ocean.png)'
+		}else if(map.data[i] < 20 && map.data[i] > 15 && map.data[i+1] >125 && map.data[i+1] < 130 && map.data[i+2] < 5){
+			document.getElementById(whichRue + "-" + (i/4 % 50)).style.background = 'url(./Images/grass.png)'
+		}else if(map.data[i] > 126 && map.data[i] < 132 && map.data[i+1] > 126 && map.data[i+1] < 132  && map.data[i+2] > 126 && map.data[i+2] < 132 ){
+			document.getElementById(whichRue + "-" + (i/4 % 50)).style.background = 'url(./Images/ground.png)'
 		}
 	}
 	for(i=8;i<30;i++){
@@ -143,7 +164,7 @@ function createMap(map){
 			document.getElementById(i + "-" + j).style.display = "";
 		}
 	}
-	document.getElementById(Player1.Y + '-' + Player1.X).src='./Images/Player.png'
+	document.getElementById(Player1.Y + '-' + Player1.X).src='./Images/player.png'
 }
 
 /**********************************
@@ -178,14 +199,14 @@ function loadFile(){
 		viewPlayScreen();
 	});
 }
-function getMap(){
+/*function getMap(){
 	fs.readFile('Map.json','utf-8',(err, data) => {
 		if(err){
 			throw err;
 		}
 		createMap(JSON.parse(data));
 	});
-}
+}*/
 
 /*********************************
  * Do Something to the Player
@@ -226,7 +247,7 @@ function movePlayer(e) {
     if (e.key == 'w') {
         if (Player1.Y - 1 >= 0) {
             Player1.Y -= 1;
-            document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
+            document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/player.png";
             document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
             for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
@@ -242,7 +263,7 @@ function movePlayer(e) {
     if (e.key == 's') {
         if (Player1.Y + 1 <mapSize[0]) {
             Player1.Y += 1;
-            document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/Player.png";
+            document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/player.png";
             document.getElementById(Player1.Y - 1 + '-' + Player1.X).src = "./Images/transparent.png";
 
             for (var i = Player1.X - 10; i < Player1.X + 10; i++) {
