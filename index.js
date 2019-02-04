@@ -162,15 +162,9 @@ function createMap() {
 		//Water
 		else if (map.data[i] < 3 && map.data[i + 1] < 3 && (map.data[i + 2] >= 251 && map.data[i + 2] <= 255)) {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ocean.png)'
-			rowContent.push(1);
-		}
-		//Grass
-		else if (map.data[i] < 20 && map.data[i] > 15 && map.data[i + 1] > 125 && map.data[i + 1] < 130 && map.data[i + 2] < 5) {
+		} else if (map.data[i] < 23 && map.data[i] > 13 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 9) {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/grass.png)'
-			rowContent.push(2);
-		}
-		//Ground
-		else if (map.data[i] > 126 && map.data[i] < 132 && map.data[i + 1] > 126 && map.data[i + 1] < 132 && map.data[i + 2] > 126 && map.data[i + 2] < 132) {
+		}else if (map.data[i] < 133 && map.data[i] > 123 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 133 && map.data[i + 2] > 123) {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ground.png)'
 			rowContent.push(2);
 		}
