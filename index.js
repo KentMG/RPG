@@ -46,6 +46,20 @@ getPixels("./Images/map.png", function (err, pixels) {
 	map = pixels;
 })
 
+getPixels("./Images/room" + i +".png", function (err, pixels) {
+	if (err) {
+		console.log(err);
+		return;
+	}
+	console.log(pixels)
+})
+getPixels("./Images/room2.png", function (err, pixels) {
+	if (err) {
+		console.log(err);
+		return;
+	}
+})
+
 /************************************
  * Make Weapon List
 ************************************/
@@ -158,6 +172,11 @@ function createMap() {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/grass.png)'
 		}else if (map.data[i] < 133 && map.data[i] > 123 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 133 && map.data[i + 2] > 123) {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ground.png)'
+		}else if (map.data[i] >250 && map.data[i + 1] > 250 && map.data[i + 2] < 110 && map.data[i + 2] > 95) {
+			console.log("agein agein!!!!")
+			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/door.png)'
+		}else{
+			console.log(i)
 		}
 	}
 	if (Player1.X - 10 < 0) {
