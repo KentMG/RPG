@@ -32,7 +32,7 @@ document.addEventListener("keypress", function (e) {
 	movePlayer(e);
 })
 /************************************
- * map setter
+ * Map Setter
 ************************************/
 getPixels("./Images/map.png", function (err, pixels) {
 	if (err) {
@@ -140,9 +140,9 @@ function createMap() {
 	let BoardHeight = mapSize[1];
 	document.getElementById('Board').style.display = "";
 	for (i = 0; i < BoardHeight; i++) {
+		console.log(i);
 		for (j = 0; j < BoardWidth; j++) {
 			Board.innerHTML += ("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
-			console.log(i + j);
 		}
 	}
 	for (var i = 0; i < map.data.length; i += 4) {
@@ -160,9 +160,77 @@ function createMap() {
 			document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ground.png)'
 		}
 	}
-	for (i = 0; i < 21; i++) {
-		for (j = 0; j < 21; j++) {
-			document.getElementById(i + "-" + j).style.display = "";
+	if (Player1.X - 10 < 0) {
+		for (var i = 0; i < 21; i++) {
+			if (Player1.Y - 10 < 0) {
+				for (var j = 0; j < 21; j++) {
+					document.getElementById(j + '-' + i).style.display = '';
+				}
+			} else if (Player1.Y + 10 >= mapSize[1]) {
+				for (var j = mapSize[1] - 21; j < mapSize[1]; j++) {
+					document.getElementById(j + '-' + i).style.display = '';
+				}
+			} else {
+				for (var j = Player1.Y - 10; j < Player1.Y + 11; j++) {
+					if (i >= 0 && j < mapSize[1] && i < mapSize[0]) {
+						document.getElementById(j + '-' + i).style.display = '';
+					}
+				}
+			}
+		}
+	} else if (Player1.X + 10 >= mapSize[1]) {
+		for (var i = mapSize[0]-21; i < mapSize[0]; i++) {
+			if (Player1.Y - 10 < 0) {
+				for (var j = 0; j < 21; j++) {
+					document.getElementById(j + '-' + i).style.display = '';
+				}
+			} else if (Player1.Y + 10 >= mapSize[1]) {
+				for (var j = mapSize[1] - 21; j < mapSize[1]; j++) {
+					document.getElementById(j + '-' + i).style.display = '';
+				}
+			} else {
+				for (var j = Player1.Y - 10; j < Player1.Y + 11; j++) {
+					if (i >= 0 && j < mapSize[1] && i < mapSize[0]) {
+						document.getElementById(j + '-' + i).style.display = '';
+					}
+				}
+			}
+		}
+	} else if (Player1.Y + 10 >= mapSize[0]) {
+		for (var i = mapSize[1]-21; i < mapSize[1]; i++) {
+			if (Player1.X - 10 < 0) {
+				for (var j = 0; j < 21; j++) {
+					document.getElementById(i + '-' + j).style.display = '';
+				}
+			} else if (Player1.X + 10 >= mapSize[0]) {
+				for (var j = mapSize[1] - 21; j < mapSize[0]; j++) {
+					document.getElementById(i + '-' + j).style.display = '';
+				}
+			} else {
+				for (var j = Player1.X - 10; j < Player1.X + 11; j++) {
+					if (i >= 0 && j < mapSize[1] && i < mapSize[0]) {
+						document.getElementById(i + '-' + j).style.display = '';
+					}
+				}
+			}
+		}
+	} else if (Player1.Y - 10 < 0) {
+		for (var i = 0; i < 21; i++) {
+			if (Player1.X - 10 < 0) {
+				for (var j = 0; j < 21; j++) {
+					document.getElementById(i + '-' + j).style.display = '';
+				}
+			} else if (Player1.X + 10 >= mapSize[1]) {
+				for (var j = mapSize[0] - 21; j < mapSize[0]; j++) {
+					document.getElementById(i + '-' + j).style.display = '';
+				}
+			} else {
+				for (var j = Player1.X - 10; j < Player1.X + 11; j++) {
+					if (i >= 0 && Player1.X + 10 < mapSize[0] && i < mapSize[1]) {
+						document.getElementById(i + '-' + j).style.display = '';
+					}
+				}
+			}
 		}
 	}
 	document.getElementById(Player1.Y + '-' + Player1.X).src = './Images/player.png'
@@ -198,6 +266,7 @@ function loadFile() {
 		clearScreen();
 		viewCharStats();
 		viewPlayScreen();
+		createMap();
 	});
 }
 /*function getMap(){
