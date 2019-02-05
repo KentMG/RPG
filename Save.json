@@ -5,6 +5,8 @@
 		"GENDER": "Coder",
 		"LEVEL": 1,
 		"XP": 0,
+		"X":1,
+		"Y":1,
 		"HP": 10,
 		"MANA": 10,
 		"MaxHP": 10,

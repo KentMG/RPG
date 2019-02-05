@@ -14,6 +14,7 @@ let Weapons = [];
 let mapSize = [];
 let map;
 let BoardOverlay = [];
+let worker = new Worker('createMap.js');
 
 /************************************
  * Requires
@@ -31,7 +32,13 @@ const { ipcRenderer } = electron;
 ************************************/
 document.addEventListener("keypress", function (e) {
 	movePlayer(e);
-})
+});
+worker.addEventListener('message', (d) => {
+	BoardOverlay = d.data[1];
+	document.getElementById('Board').innerHTML = d.data[0];
+	console.log(d.data[1]);
+	console.log(d.data[0]);
+});
 /************************************
  * Map Setter
 ************************************/
@@ -40,13 +47,14 @@ getPixels("./Images/map.png", function (err, pixels) {
 		console.log(err);
 		return;
 	}
-	console.log(pixels)
+	worker.postMessage(pixels)
+//	console.log(pixels)
 	mapSize.push(pixels.shape[1])
 	mapSize.push(pixels.shape[0])
-	console.log(mapSize)
-	map = pixels;
+//	console.log(mapSize)
+//	map = pixels;
 })
-
+/*
 getPixels("./Images/room" + i + ".png", function (err, pixels) {
 	if (err) {
 		console.log(err);
@@ -60,7 +68,7 @@ getPixels("./Images/room2.png", function (err, pixels) {
 		return;
 	}
 })
-
+*/
 /************************************
  * Make Weapon List
 ************************************/
@@ -79,6 +87,7 @@ function makeCharacter(name, race, gender) {
 	clearScreen();
 	viewCharStats();
 	createMap();
+	showMapAroundPlayer();
 	viewPlayScreen();
 }
 //Empty Screen of all but Stats
@@ -147,6 +156,7 @@ function toMenu() {
 }
 //Build the Map
 function createMap() {
+/********************
 	let Board = document.getElementById('Board');
 	let whichRue = 0;
 	//mapSize.push(map.Size[0]);
@@ -196,9 +206,11 @@ function createMap() {
 			console.log(i)
 		}
 	}
+**************************/
 }
 //Show map around Player
 function showMapAroundPlayer() {
+	document.getElementById('Board').style.display = "";
 	if (Player1.X - 10 < 0) {
 		for (var i = 0; i < 21; i++) {
 			if (Player1.Y - 10 < 0) {
@@ -306,6 +318,7 @@ function loadFile() {
 		viewCharStats();
 		viewPlayScreen();
 		createMap();
+		showMapAroundPlayer();
 	});
 }
 /*function getMap(){
@@ -352,7 +365,7 @@ function Battle(player, enemy) {
 	}
 }
 //Move the Player
-function movePlayer(e) {
+function movePlayer(e) {console.log('Hi');
 	let map = document.getElementById('Board');
 	if (e.key == 'w') {
 		if (Player1.Y - 1 >= 0 && BoardOverlay[Player1.Y - 1][Player1.X] != 0) {
