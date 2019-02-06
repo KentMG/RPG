@@ -49,4 +49,4 @@ if(process.platform == 'darwin'){
 }
 
 //Listen for app to be ready
-app.on('ready', boot); 
+app.on('ready', boot);

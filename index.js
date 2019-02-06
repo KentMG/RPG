@@ -31,16 +31,17 @@ const { ipcRenderer } = electron;
 /************************************
  * Map Setter
 ************************************/
-getPixels("./Images/fuckingMassiveMap.png", function (err, pixels) {
+getPixels("./Images/750Map.png", function (err, pixels) {
 	if (err) {
 		console.log(err);
 		return;
 	}
 	mapSize.push(pixels.shape[1])
 	mapSize.push(pixels.shape[0])
-	//Make a div for each row
+	//Make a DIV and Board Array Element for each row of the map
 	for (i = 0; i < mapSize[0]; i++) {
 		document.getElementById('Board').innerHTML += "<div id=Board" + i + "></div>";
+		Board.push[""];
 	}
 	//Make one worker per row
 	for (i = 0; i < mapSize[1]; i++) {
@@ -48,19 +49,22 @@ getPixels("./Images/fuckingMassiveMap.png", function (err, pixels) {
 		let giveToWorkers = [i, pixels];
 		workers[i].postMessage(giveToWorkers);
 	}
-	//	console.log(pixels)
 	console.log(pixels)
+
+	/****************************************
+	 * Create Event Listeners Dynamically
+	****************************************/
 	for (i = 0; i < workers.length; i++) {
 		workers[i].addEventListener('message', (d) => {
 			let row = d.data[2];
 			BoardOverlay[row] = d.data[1];
-			Board.push(d.data[0]);
+			Board[row]=d.data[0];
 			console.log(row);
 		});
 	}
-	//	console.log(mapSize)
-	//	map = pixels;
 })
+
+
 /*
 getPixels("./Images/room" + i + ".png", function (err, pixels) {
 	if (err) {
@@ -233,6 +237,10 @@ function createMap() {
 }
 //Show map around Player
 function showMapAroundPlayer() {
+	for(i=0; i<workers.length;i++){
+		workers[i].terminate();
+	}
+	console.log(Board);
 	document.getElementById('Board').style.display = "";
 	if (Player1.X - 10 < 0) {
 		for (var i = 0; i < 21; i++) {
