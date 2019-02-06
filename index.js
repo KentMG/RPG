@@ -31,7 +31,7 @@ const { ipcRenderer } = electron;
 /************************************
  * Map Setter
 ************************************/
-getPixels("./Images/750Map.png", function (err, pixels) {
+getPixels("./Images/map.png", function (err, pixels) {
 	if (err) {
 		console.log(err);
 		return;
