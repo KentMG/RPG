@@ -31,8 +31,13 @@ addEventListener('message', (d) => {
 		}
 		//Water
 		else if (map.data[i] == 0 && map.data[i + 1] == 51 && map.data[i + 2] == 204) {
-			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image: url(./Images/ocean.png);'/>");
+			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image: url(./Images/shallowWater.png);'/>");
 			rowContent.push(1);
+		}
+		//Deep Water
+		else if (map.data[i] == 0 && map.data[i + 1] == 0 && map.data[i + 2] == 153) {
+			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image: url(./Images/deepWater.png);'/>");
+			rowContent.push(0);
 		}
 		//Grass
 		else if (map.data[i] == 0 && map.data[i + 1] == 102 && map.data[i + 2] == 0) {
@@ -45,11 +50,12 @@ addEventListener('message', (d) => {
 			rowContent.push(2);
 		}
 		//Door
-		else if (map.data[i] > 250 && map.data[i + 1] > 250 && map.data[i + 2] < 110 && map.data[i + 2] > 95) {
+		else if (map.data[i] == 255 && map.data[i + 1] == 255 && map.data[i + 2] == 102) {
 			console.log("agein agein!!!!")
 			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image:url(./Images/door.png);'/>");
 			rowContent.push(3);
 		} else {
+			console.log(i)
 			console.log(map.data[i])
 			console.log(map.data[i+1])
 			console.log(map.data[i+2])
