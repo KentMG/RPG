@@ -1,25 +1,16 @@
 addEventListener('message', (d) => {
 	let result = []
-	let BoardOverlay = [];
 	let row = d.data[0];
 	let pixels = d.data[1];
 	let map = pixels;
-	let Board = ""//document.getElementById('Board');
+	let Board = ""
 	let BoardWidth = pixels.shape[1];
 	let BoardHeight = pixels.shape[0];
 	let mapSize = [BoardHeight, BoardWidth];
-	//document.getElementById('Board').style.display = "";
-	/*for (i = 0; i < BoardHeight; i++) {
-		console.log(i);
-		for (j = 0; j < BoardWidth; j++) {
-			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
-		}
-		*/
 	//Color Tiles
 	let rowContent = [];
 	for (var i = row*(BoardWidth*4); i < (row+1)*(BoardWidth*4); i += 4) {
 		if (i / 4 % mapSize[0] == 0 && i != 0) {
-			BoardOverlay.push(rowContent);
 			rowContent = [];
 		}
 		//Border
@@ -49,20 +40,17 @@ addEventListener('message', (d) => {
 		}
 		//Door
 		else if (map.data[i] == 255 && map.data[i + 1] == 255 && map.data[i + 2] == 102) {
-			console.log("agein agein!!!!")
 			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px;background-image:url(./Images/door.png);'/>");
 			rowContent.push(3);
-			console.log(i)
 		} else {
 			console.log(map.data[i])
 			console.log(map.data[i + 1])
 			console.log(map.data[i + 2])
 		}
 	}
-	//console.log(rowContent)
+
 	result.push(Board);
 	result.push(rowContent);
 	result.push(row)
-	//console.log(result[1])
 	self.postMessage(result);
 });

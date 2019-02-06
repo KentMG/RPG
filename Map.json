@@ -1,7 +1,9 @@
 {
-    "Size":[30,30],
-    "Grass":[
-        [],
-        []
+    "map.png":[
+        {
+            "location":[0,1],
+            "to":"Room1.png",
+            "loadOn":[1,1]
+        }
     ]
 }

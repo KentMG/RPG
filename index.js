@@ -40,18 +40,16 @@ getPixels("./Images/map.png", function (err, pixels) {
 	mapSize.push(pixels.shape[0])
 	//Make a DIV and Board Array Element for each row of the map
 	for (i = 0; i < mapSize[0]; i++) {
-		document.getElementById('Board').innerHTML += "<div id=Board" + i + "></div>";
+		document.getElementById('Board').innerHTML += "<div id='Board" + i + "' class='Row'></div>";
 		BoardOverlay.push("")
 		Board.push("");
 	}
-	console.log(BoardOverlay)
 	//Make one worker per row
 	for (i = 0; i < mapSize[1]; i++) {
 		workers.push(new Worker('createMap.js'));
 		let giveToWorkers = [i, pixels];
 		workers[i].postMessage(giveToWorkers);
 	}
-	console.log(pixels)
 
 	/****************************************
 	 * Create Event Listeners Dynamically
@@ -59,10 +57,8 @@ getPixels("./Images/map.png", function (err, pixels) {
 	for (i = 0; i < workers.length; i++) {
 		workers[i].addEventListener('message', (d) => {
 			let row = d.data[2];
-			console.log(d.data[1])
 			BoardOverlay[row] = d.data[1];
 			Board[row] = d.data[0];
-			console.log(row);
 		});
 	}
 })
@@ -90,14 +86,6 @@ getPixels("./Images/room2.png", function (err, pixels) {
 document.addEventListener("keypress", function (e) {
 	movePlayer(e);
 });
-// for (i = 0; i < workers.length; i++) {
-// 	workers[i].addEventListener('message', (d) => {
-// 		let row = d.data[2];
-// 		BoardOverlay[row] = d.data[1];
-// 		document.getElementById('Board' + row).innerHTML = d.data[0];
-// 		console.log(d.data[0]);
-// 	});
-// }
 
 /************************************
  * Make Weapon List
@@ -116,7 +104,6 @@ function makeCharacter(name, race, gender) {
 	Player1.INVENTORY.push(Weapons[1]);
 	clearScreen();
 	viewCharStats();
-	createMap();
 	showMapAroundPlayer();
 	viewPlayScreen();
 }
@@ -153,6 +140,7 @@ function viewPlayScreen() {
 	for (i = 0; i < playScreen.length; i++) {
 		playScreen[i].style.display = "";
 	}
+	document.getElementById("MenuBox").style.display = "";
 }
 //Show Battle Screen
 function viewCombat() {
@@ -184,66 +172,12 @@ function toMenu() {
 	clearScreen();
 	viewPlayScreen();
 }
-//Build the Map
-function createMap() {
-	/********************
-		let Board = document.getElementById('Board');
-		let whichRue = 0;
-		//mapSize.push(map.Size[0]);
-		//mapSize.push(map.Size[1]);
-		let BoardWidth = mapSize[0];
-		let BoardHeight = mapSize[1];
-		document.getElementById('Board').style.display = "";
-		for (i = 0; i < BoardHeight; i++) {
-			console.log(i);
-			for (j = 0; j < BoardWidth; j++) {
-				Board.innerHTML += ("<img src='./Images/transparent.png' class='Tile' id='" + i + "-" + j + "' style='display:none; width:30px; height:30px;'/>");
-			}
-		}
-		//Color Tiles
-		let rowContent = [];
-		for (var i = 0; i < map.data.length; i += 4) {
-			if (i / 4 % mapSize[0] == 0 && i != 0) {
-				BoardOverlay.push(rowContent);
-				whichRue++;
-				rowContent = [];
-			}
-			//Border
-			if (map.data[i] < 3 && map.data[i + 1] < 3 && map.data[i + 2] < 3) {
-				document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/border.png)';
-				rowContent.push(0);
-			}
-			//Water
-			else if (map.data[i] < 3 && map.data[i + 1] < 3 && (map.data[i + 2] >= 251 && map.data[i + 2] <= 255)) {
-				document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ocean.png)';
-			}
-			//Grass
-			else if (map.data[i] < 23 && map.data[i] > 13 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 9) {
-				document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/grass.png)';
-				rowContent.push(2);
-			}
-			//Ground
-			else if (map.data[i] < 133 && map.data[i] > 123 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 133 && map.data[i + 2] > 123) {
-				document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/ground.png)';
-				rowContent.push(2);
-			}
-			//Door
-			else if (map.data[i] > 250 && map.data[i + 1] > 250 && map.data[i + 2] < 110 && map.data[i + 2] > 95) {
-				console.log("agein agein!!!!")
-				document.getElementById(whichRue + "-" + (i / 4 % 50)).style.background = 'url(./Images/door.png)';
-				rowContent.push(3);
-			} else {
-				console.log(i)
-			}
-		}
-	**************************/
-}
+
 //Show map around Player
 function showMapAroundPlayer() {
 	for (i = 0; i < workers.length; i++) {
 		workers[i].terminate();
 	}
-	console.log(BoardOverlay);
 	document.getElementById('Board').style.display = "";
 	if (Player1.X - 10 < 0) {
 		for (var i = 0; i < 21; i++) {
@@ -361,7 +295,6 @@ function saveFile() {
 	fs.writeFile('Save.json', JSON.stringify(item, null, '\t'), (err) => {
 		console.log(err);
 	});
-	//ipcRenderer.send('Player:save', JSON.stringify(toPush, null, 4));
 }
 //Load from JSON
 function loadFile() {
@@ -382,18 +315,9 @@ function loadFile() {
 		clearScreen();
 		viewCharStats();
 		viewPlayScreen();
-		createMap();
 		showMapAroundPlayer();
 	});
 }
-/*function getMap(){
-	fs.readFile('Map.json','utf-8',(err, data) => {
-		if(err){
-			throw err;
-		}
-		createMap(JSON.parse(data));
-	});
-}*/
 
 /*********************************
  * Do Something to the Player

@@ -1,63 +1,71 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link href="./index.css" rel="stylesheet" type="text/css">
-	</head>
-	<body>
-		<!-----------------------------
+
+<head>
+	<link href="./index.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<!-----------------------------
 			Character Creation Screen
 		------------------------------>
-		<div id="CharCreator" class="CharCreator">
-			<p class="CharCreator">Name: </p>
-			<input type="text" id="playerName" class="CharCreator"/>
-			<br class="CharCreator">
-			<p class="CharCreator">Race: </p>
-			<input type="text" id="playerRace" class="CharCreator"/>
-			<br class="CharCreator">
-			<p class="CharCreator">Gender: </p>
-			<input type="text" id="playerGender" class="CharCreator"/>
-			<br class="CharCreator">
-			<input type="button" class="CharCreator" value="Create Character" onclick="makeCharacter(document.getElementById('playerName').value, document.getElementById('playerRace').value, document.getElementById('playerGender').value)"/>
-			<input type="button" class="CharCreator" value="Load from Save" onclick="loadFile()"/>
-		</div>
-		<!-----------------------------
+	<div id="CharCreator" class="CharCreator">
+		<p class="CharCreator">Name: </p>
+		<input type="text" id="playerName" class="CharCreator" />
+		<br class="CharCreator">
+		<p class="CharCreator">Race: </p>
+		<input type="text" id="playerRace" class="CharCreator" />
+		<br class="CharCreator">
+		<p class="CharCreator">Gender: </p>
+		<input type="text" id="playerGender" class="CharCreator" />
+		<br class="CharCreator">
+		<input type="button" class="CharCreator" value="Create Character" onclick="makeCharacter(document.getElementById('playerName').value, document.getElementById('playerRace').value, document.getElementById('playerGender').value)" />
+		<input type="button" class="CharCreator" value="Load from Save" onclick="loadFile()" />
+	</div>
+	<!-----------------------------
 			Stats Screen
 		------------------------------>
-		<div class="CharStats" style="display:none">
-			<p id="pStats" class="CharStats" style="display:none"></p>
-			<p id="pResources" class="CharStats" style="display:none">HP:10 Mana:10 Level:1</p>
-		</div>
-		<!-----------------------------
+	<div class="CharStats" style="display:none">
+		<p id="pStats" class="CharStats" style="display:none"></p>
+		<p id="pResources" class="CharStats" style="display:none">HP:10 Mana:10 Level:1</p>
+	</div>
+	<!-----------------------------
 			Map
 		------------------------------>
-		<div class="Board" id="Board" style="display:none"></div>
+	<div class="Board" id="Board" style="display:none"></div>
+
+	<!-----------------------------
+			box for buttons and dialogue
+		----------------------------->
+	<div id="MenuBox" style="display: none">
 		<!-----------------------------
 			Dialogue and menue Screen
 		------------------------------>
-		
-		<div class="playScreen" style = "display:none">
-			<input type="button" value="View Inventory" onclick="viewInventory()"/>
-			<input type="button" value="Enter Combat" onclick="viewCombat()"/>
-			<input type="button" value="Heal" onclick="Heal(10)"/>
-			<input type="button" value="Save" onclick="saveFile()"/>
+		<div class="playScreen">
+			<input type="button" value="View Inventory" onclick="viewInventory()" />
+			<input type="button" value="Enter Combat" onclick="viewCombat()" />
+			<input type="button" value="Heal" onclick="Heal(10)" />
+			<input type="button" value="Save" onclick="saveFile()" />
 		</div>
 		<!-----------------------------
 			Inventory Screen
 		------------------------------>
 		<div class="inventoryScreen" style="display:none">
-		<p class="inventoryScreen" style="display:none">Equipped Weapon:</p>
-		<select class="inventoryScreen" id="weaponSelect" onchange="changeWeapon()"></select>
-		<input type="button" value="Back to Menu" class="inventoryScreen" style="display:none" onclick="toMenu()" />
+			<p class="inventoryScreen" style="display:none">Equipped Weapon:</p>
+			<select class="inventoryScreen" id="weaponSelect" onchange="changeWeapon()"></select>
+			<input type="button" value="Back to Menu" class="inventoryScreen" style="display:none" onclick="toMenu()" />
 		</div>
-		<!-----------------------------
+	</div>
+	<!-----------------------------
 			Combat Screen
 		------------------------------>
-		<div class="combatScreen" style="display:none">
-			<p class="combatScreen" style="display:none" id="enemyStats"></p>
-			<input type="button" value="Attack" class="combatScreen" style="display:none" onclick="Battle(Player1, Enemies[0])"></input>
-			<input type="button" value="Run" id="enderOfCombat" class="combatScreen" style="display:none" onclick="toMenu()" />
-		</div>
-		
+	<div class="combatScreen" style="display:none">
+		<p class="combatScreen" style="display:none" id="enemyStats"></p>
+		<input type="button" value="Attack" class="combatScreen" style="display:none" onclick="Battle(Player1, Enemies[0])"></input>
+		<input type="button" value="Run" id="enderOfCombat" class="combatScreen" style="display:none" onclick="toMenu()" />
+	</div>
+
 	<script src="index.js"></script>
 </body>
+
 </html>

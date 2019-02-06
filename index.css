@@ -7,3 +7,15 @@
 	margin-right:auto;
 	width:630px;
 }
+.Row{
+	margin-bottom: -4px;
+}
+#MenuBox{
+	
+	border: 1px solid grey;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 700px;
+	height: 10em;
+}
