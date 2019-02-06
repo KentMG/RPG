@@ -41,8 +41,10 @@ getPixels("./Images/map.png", function (err, pixels) {
 	//Make a DIV and Board Array Element for each row of the map
 	for (i = 0; i < mapSize[0]; i++) {
 		document.getElementById('Board').innerHTML += "<div id=Board" + i + "></div>";
-		Board.push[""];
+		BoardOverlay.push("")
+		Board.push("");
 	}
+	console.log(BoardOverlay)
 	//Make one worker per row
 	for (i = 0; i < mapSize[1]; i++) {
 		workers.push(new Worker('createMap.js'));
@@ -57,8 +59,9 @@ getPixels("./Images/map.png", function (err, pixels) {
 	for (i = 0; i < workers.length; i++) {
 		workers[i].addEventListener('message', (d) => {
 			let row = d.data[2];
+			console.log(d.data[1])
 			BoardOverlay[row] = d.data[1];
-			Board[row]=d.data[0];
+			Board[row] = d.data[0];
 			console.log(row);
 		});
 	}
@@ -237,10 +240,10 @@ function createMap() {
 }
 //Show map around Player
 function showMapAroundPlayer() {
-	for(i=0; i<workers.length;i++){
+	for (i = 0; i < workers.length; i++) {
 		workers[i].terminate();
 	}
-	console.log(Board);
+	console.log(BoardOverlay);
 	document.getElementById('Board').style.display = "";
 	if (Player1.X - 10 < 0) {
 		for (var i = 0; i < 21; i++) {
@@ -320,9 +323,6 @@ function showMapAroundPlayer() {
 		}
 	} else if (Player1.Y - 10 < 0) {
 		for (var i = 0; i < 21; i++) {
-			if (document.getElementById('Board' + i).innerHTML == "") {
-				document.getElementById('Board' + i).innerHTML = Board[i];
-			}
 			if (Player1.X - 10 < 0) {
 				for (var j = 0; j < 21; j++) {
 					document.getElementById(i + '-' + j).style.display = '';
@@ -337,6 +337,15 @@ function showMapAroundPlayer() {
 						document.getElementById(i + '-' + j).style.display = '';
 					}
 				}
+			}
+		}
+	} else {
+		for (var i = Player1.Y - 10; i < Player1.Y + 11; i++) {
+			if (document.getElementById('Board' + i).innerHTML == "") {
+				document.getElementById('Board' + i).innerHTML = Board[i];
+			}
+			for (var j = Player1.X - 10; j < Player1.X + 11; j++) {
+				document.getElementById(i + '-' + j).style.display = '';
 			}
 		}
 	}
@@ -426,8 +435,10 @@ function movePlayer(e) {
 	if (e.key == 'w') {
 		if (Player1.Y - 1 >= 0 && BoardOverlay[Player1.Y - 1][Player1.X] != 0) {
 			Player1.Y -= 1;
-			if (Player1.Y - 10 > 0 && document.getElementById('Board' + Player1.Y - 10).innerHTML == "") {
-				document.getElementById('Board' + Player1.Y - 10).innerHTML = Board[Player1.Y - 10];
+			if (Player1.Y - 10 >= 0) {
+				if (document.getElementById('Board' + (Player1.Y - 10)).innerHTML == "") {
+					document.getElementById('Board' + (Player1.Y - 10)).innerHTML = Board[Player1.Y - 10];
+				}
 			}
 			document.getElementById(Player1.Y + '-' + Player1.X).src = "./Images/player.png";
 			document.getElementById(Player1.Y + 1 + '-' + Player1.X).src = "./Images/transparent.png";
