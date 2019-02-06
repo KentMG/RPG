@@ -25,22 +25,22 @@
 				rowContent = [];
 			}
 			//Border
-			if (map.data[i] < 3 && map.data[i + 1] < 3 && map.data[i + 2] < 3) {
+			if (map.data[i] == 0 && map.data[i + 1] == 0 && map.data[i + 2] == 0) {
 				Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image:url(./Images/border.png);'/>");
 				rowContent.push(0);
 			}
 			//Water
-			else if (map.data[i] < 3 && map.data[i + 1] < 3 && (map.data[i + 2] >= 251 && map.data[i + 2] <= 255)) {
+			else if (map.data[i] == 0 && map.data[i + 1] == 51 && map.data[i + 2] == 204) {
 				Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image: url(./Images/ocean.png);'/>");
 				rowContent.push(1);
 			}
 			//Grass
-			else if (map.data[i] < 23 && map.data[i] > 13 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 9) {
+			else if (map.data[i] == 0 && map.data[i + 1] == 102 && map.data[i + 2] == 0) {
 				Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image:url(./Images/grass.png);'/>");
 				rowContent.push(2);
 			}
 			//Ground
-			else if (map.data[i] < 133 && map.data[i] > 123 && map.data[i + 1] > 122 && map.data[i + 1] < 132 && map.data[i + 2] < 133 && map.data[i + 2] > 123) {
+			else if (map.data[i] ==153 && map.data[i + 1] == 153 && map.data[i + 2] == 153) {
 				Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image:url(./Images/ground.png);'/>");
 				rowContent.push(2);
 			}
@@ -50,7 +50,9 @@
 				Board += ("<img src='./Images/transparent.png' class='Tile' id='" + Math.floor(i/200) + "-" + (i/4)%50 + "' style='display:none; width:30px; height:30px;background-image:url(./Images/door.png);'/>");
 				rowContent.push(3);
 			} else {
-				console.log(i)
+				console.log(map.data[i])
+				console.log(map.data[i+1])
+				console.log(map.data[i+2])
 			}
 		}
 		BoardOverlay.push(rowContent)
