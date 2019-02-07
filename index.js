@@ -113,10 +113,7 @@ function clearScreen() {
 	for (i = 0; i < CharCreate.length; i++) {
 		CharCreate[i].style.display = 'none';
 	}
-	let playScreen = document.getElementsByClassName("playScreen");
-	for (i = 0; i < playScreen.length; i++) {
-		playScreen[i].style.display = 'none';
-	}
+	document.getElementById("playScreen").style.display = 'none';
 	let invScreen = document.getElementsByClassName('inventoryScreen');
 	for (i = 0; i < invScreen.length; i++) {
 		invScreen[i].style.display = 'none';
