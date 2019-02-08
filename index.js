@@ -344,15 +344,6 @@ function showMapAroundPlayer() {
 					}
 				}
 			}
-		} else {
-			for (var i = Y - 10; i < Y + 11; i++) {
-				if (document.getElementById('BName' + i).innerHTML == "") {
-					document.getElementById('BName' + i).innerHTML = BName[i];
-				}
-				for (var j = X - 10; j < X + 11; j++) {
-					document.getElementById(i + Delimiter + j).style.display = '';
-				}
-			}
 		}
 	} else {
 		for (var i = Y - 10; i < Y + 11; i++) {
