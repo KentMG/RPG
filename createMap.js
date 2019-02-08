@@ -104,6 +104,6 @@ addEventListener('message', (d) => {
 	result.push(Board);
 	result.push(rowContent);
 	result.push(row)
-	result.push()
+	result.push(d.data[3])
 	self.postMessage(result);
 });
