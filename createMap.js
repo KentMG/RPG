@@ -81,12 +81,12 @@ addEventListener('message', (d) => {
 			Board += ("background-image:url(./Images/ground.png);'/>");
 		}
 		//Water
-		else if (map.data[i] == 0 && map.data[i + 1] == 51 && map.data[i + 2] == 204) {
+		else if (background.data[i] == 0 && background.data[i + 1] == 51 && background.data[i + 2] == 204) {
 			Board += ("background-image:url(./Images/ground.png);'/>");
 			rowContent.push(1);
 		}
 		//Grass
-		else if(map.data[i]==0 && map.data[i+1] == 102 && map.data[i+2] == 0){
+		else if(background.data[i]==0 && background.data[i+1] == 102 && background.data[i+2] == 0){
 			Board += ("background-image:url(./Images/grass.png);'/>");
 		}
 	}
