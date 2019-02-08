@@ -71,7 +71,9 @@ addEventListener('message', (d) => {
 		//end of wall
 		else if (map.data[i] == 255 && map.data[i + 1] == 102 && map.data[i + 2] == 102) {
 			Board += ("<img src='./Images/wallEnd.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
-		}  else {
+		}  else if(map.data[i] == 255 && map.data[i+1] == 255 && map.data[i + 2] == 255){
+			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
+		}else{
 			console.log(map.data[i])
 			console.log(map.data[i + 1])
 			console.log(map.data[i + 2])
