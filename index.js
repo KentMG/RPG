@@ -239,9 +239,11 @@ function showMapAroundPlayer() {
 	let YSize = mapSize[0];
 	let XSize = mapSize[1];
 	let Delimiter = "-";
+	let currentMap = Board;
 	if (!inMap) {
 		X = Player1.X2;
 		Y = Player1.Y2;
+		currentMap = room;
 		BName = "Room";
 		YSize = map2Size[0];
 		XSize = map2Size[1];
@@ -344,22 +346,16 @@ function showMapAroundPlayer() {
 					}
 				}
 			}
-		} else {
-			for (var i = Y - 10; i < Y + 11; i++) {
-				if (document.getElementById('BName' + i).innerHTML == "") {
-					document.getElementById('BName' + i).innerHTML = BName[i];
-				}
-				for (var j = X - 10; j < X + 11; j++) {
-					document.getElementById(i + Delimiter + j).style.display = '';
-				}
-			}
 		}
 	} else {
+		console.log(Delimiter)
 		for (var i = Y - 10; i < Y + 11; i++) {
 			if (document.getElementById(BName + i).innerHTML == "") {
-				document.getElementById(BName + i).innerHTML = BName[i];
+				document.getElementById(BName + i).innerHTML = Board[i];
+				console.log(currentMap[i])
 			}
 			for (var j = X - 10; j < X + 11; j++) {
+				console.log(j)
 				document.getElementById(i + Delimiter + j).style.display = '';
 			}
 		}
