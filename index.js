@@ -32,6 +32,7 @@ const { ipcRenderer } = electron;
  * Map Setter
 ************************************/
 getPixels("./Images/map.png", function (err, pixels) {
+	getPixels("", function(err2, pixel2){
 	if (err) {
 		console.log(err);
 		return;
@@ -47,7 +48,7 @@ getPixels("./Images/map.png", function (err, pixels) {
 	//Make one worker per row
 	for (i = 0; i < mapSize[1]; i++) {
 		workers.push(new Worker('createMap.js'));
-		let giveToWorkers = [i, pixels];
+		let giveToWorkers = [i, pixels, pixels2];
 		workers[i].postMessage(giveToWorkers);
 	}
 
