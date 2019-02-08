@@ -18,11 +18,6 @@ addEventListener('message', (d) => {
 			Board += ("<img src='./Images/border.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
 			rowContent.push(0);
 		}
-		//Water
-		else if (map.data[i] == 0 && map.data[i + 1] == 51 && map.data[i + 2] == 204) {
-			Board += ("<img src='./Images/shallowWater.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
-			rowContent.push(1);
-		}
 		//Deep Water
 		else if (map.data[i] == 0 && map.data[i + 1] == 0 && map.data[i + 2] == 153) {
 			Board += ("<img src='./Images/deepWater.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
@@ -33,7 +28,7 @@ addEventListener('message', (d) => {
 			Board += ("<img src='./Images/trees.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
 			rowContent.push(0);
 		}
-		//trees tops on Grass
+		//trees tops
 		else if (map.data[i] == 102 && map.data[i + 1] == 255 && map.data[i + 2] == 153) {
 			Board += ("<img src='./Images/TreeTop.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
 			rowContent.push(0);
@@ -81,8 +76,18 @@ addEventListener('message', (d) => {
 			console.log(map.data[i + 1])
 			console.log(map.data[i + 2])
 		}
-		if (background.data[i] == 255 && background.data[i + 1] == 102 && background.data[i + 2] == 102) {
+		//ground
+		if (background.data[i] == 153 && background.data[i + 1] == 153 && background.data[i + 2] == 153) {
 			Board += ("background-image:url(./Images/ground.png);'/>");
+		}
+		//Water
+		else if (map.data[i] == 0 && map.data[i + 1] == 51 && map.data[i + 2] == 204) {
+			Board += ("background-image:url(./Images/ground.png);'/>");
+			rowContent.push(1);
+		}
+		//Grass
+		else if(map.data[i]==0 && map.data[i+1] == 102 && map.data[i+2] == 0){
+			Board += ("background-image:url(./Images/grass.png);'/>");
 		}
 	}
 
