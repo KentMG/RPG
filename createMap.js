@@ -35,7 +35,7 @@ addEventListener('message', (d) => {
 		}
 		//trees
 		else if (map.data[i] == 0 && map.data[i + 1] == 153 && map.data[i + 2] == 0) {
-			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px;background-image:url(./Images/trees.png);'/>");
+			Board += ("<img src='./Images/trees.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px;background-image:url(./Images/grass.png);'/>");
 			rowContent.push(0);
 		}
 		//trees tops on Grass
@@ -86,6 +86,11 @@ addEventListener('message', (d) => {
 		//Top Left corner wall
 		else if (map.data[i] == 102 && map.data[i + 1] == 51 && map.data[i + 2] == 51) {
 			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px;background-image:url(./Images/CornerWall.png); transform: rotate(270deg);'/>");
+			rowContent.push(0);
+		}
+		//end of wall
+		else if (map.data[i] == 255 && map.data[i + 1] == 102 && map.data[i + 2] == 102) {
+			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + row + "-" + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px;background-image:url(./Images/wallEnd.png);'/>");
 			rowContent.push(0);
 		}  else {
 			console.log(map.data[i])
