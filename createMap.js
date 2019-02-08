@@ -90,11 +90,16 @@ addEventListener('message', (d) => {
 		//Grass
 		else if(background.data[i]==0 && background.data[i+1] == 102 && background.data[i+2] == 0){
 			Board += ("background-image:url(./Images/grass.png);'/>");
+		}else{
+			console.log(map.data[i])
+			console.log(map.data[i + 1])
+			console.log(map.data[i + 2])
 		}
 	}
 
 	result.push(Board);
 	result.push(rowContent);
 	result.push(row)
+	result.push()
 	self.postMessage(result);
 });
