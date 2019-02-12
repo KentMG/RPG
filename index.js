@@ -19,6 +19,7 @@ let BoardOverlay = [];
 let Board = [];
 let RoomOverlay = [];
 let Room = [];
+let currentBoard = [];
 let inMap = true;
 
 /****************************************
@@ -239,11 +240,11 @@ function showMapAroundPlayer() {
 	let YSize = mapSize[0];
 	let XSize = mapSize[1];
 	let Delimiter = "-";
-	let currentMap = Board;
+	currentMap = Board;
 	if (!inMap) {
 		X = Player1.X2;
 		Y = Player1.Y2;
-		currentMap = room;
+		currentMap = Room;
 		BName = "Room";
 		YSize = map2Size[0];
 		XSize = map2Size[1];
@@ -348,14 +349,11 @@ function showMapAroundPlayer() {
 			}
 		}
 	} else {
-		console.log(Delimiter)
 		for (var i = Y - 10; i < Y + 11; i++) {
 			if (document.getElementById(BName + i).innerHTML == "") {
 				document.getElementById(BName + i).innerHTML = Board[i];
-				console.log(currentMap[i])
 			}
 			for (var j = X - 10; j < X + 11; j++) {
-				console.log(j)
 				document.getElementById(i + Delimiter + j).style.display = '';
 			}
 		}
@@ -449,7 +447,13 @@ function movePlayer(e) {
 	}
 	if (e.key == 'w') {
 		if (Y - 1 >= 0 && BoardOverlay[Y - 1][X] != 0) {
-			Y -= 1;
+			if(inMap){
+				Player1.Y-=1;
+			}
+			else{
+				Player1.Y2-=1;
+			}
+			//Y -= 1;
 			if (Y - 10 >= 0) {
 				if (document.getElementById(BName + (Y - 10)).innerHTML == "") {
 					document.getElementById(BName + (Y - 10)).innerHTML = Board[Y - 10];
@@ -457,7 +461,7 @@ function movePlayer(e) {
 			}
 			document.getElementById(Y + Delimiter + X).src = "./Images/player.png";
 			document.getElementById(Y + 1 + Delimiter + X).src = "./Images/transparent.png";
-
+			console.log(Y + Delimiter + X);
 			if (X - 10 < 0) {
 				for (var i = 0; i < 21; i++) {
 					if (i >= 0 && Y - 10 >= 0 && i < XSize) {
@@ -490,7 +494,13 @@ function movePlayer(e) {
 	}
 	if (e.key == 's') {
 		if (Y + 1 < YSize && BoardOverlay[Y + 1][X] != 0) {
-			Y += 1;
+			if(inMap){
+				Player1.Y+=1;
+			}
+			else{
+				Player1.Y2+=1;
+			}
+			//Y += 1;
 			if (Y + 10 < YSize) {
 				if (document.getElementById(BName + (Y + 10)).innerHTML == "") {
 					document.getElementById(BName + (Y + 10)).innerHTML = Board[Y + 10];
@@ -531,7 +541,13 @@ function movePlayer(e) {
 	}
 	if (e.key == 'd') {
 		if (X + 1 < XSize && BoardOverlay[Y][X + 1] != 0) {
-			X += 1;
+			if(inMap){
+				Player1.X+=1;
+			}
+			else{
+				Player1.X2+=1;
+			}
+			//X += 1;
 			document.getElementById(Y + Delimiter + X).src = "./Images/Player.png";
 			document.getElementById(Y + Delimiter + (X - 1)).src = "./Images/transparent.png";
 
@@ -567,7 +583,13 @@ function movePlayer(e) {
 	}
 	if (e.key == 'a') {
 		if (X - 1 >= 0 && BoardOverlay[Y][X - 1] != 0) {
-			X -= 1;
+			if(inMap){
+				Player1.X-=1;
+			}
+			else{
+				Player1.X2-=1;
+			}
+			//X -= 1;
 			document.getElementById(Y + Delimiter + X).src = "./Images/Player.png";
 			document.getElementById(Y + Delimiter + (X + 1)).src = "./Images/transparent.png";
 			if (Y - 10 < 0) {
