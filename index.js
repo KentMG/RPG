@@ -241,6 +241,7 @@ function showMapAroundPlayer() {
 	let XSize = mapSize[1];
 	let Delimiter = "-";
 	currentMap = Board;
+	console.log(currentMap);
 	if (!inMap) {
 		X = Player1.X2;
 		Y = Player1.Y2;
@@ -437,6 +438,7 @@ function movePlayer(e) {
 	let YSize = mapSize[0];
 	let XSize = mapSize[1];
 	let Delimiter = "-";
+	console.log(BoardOverlay);
 	if (!inMap) {
 		X = Player1.X2;
 		Y = Player1.Y2;
@@ -449,11 +451,15 @@ function movePlayer(e) {
 		if (Y - 1 >= 0 && BoardOverlay[Y - 1][X] != 0) {
 			if(inMap){
 				Player1.Y-=1;
+				X = Player1.X;
+				Y = Player1.Y;
 			}
 			else{
 				Player1.Y2-=1;
+				X = Player1.X2;
+				Y = Player1.Y2;
 			}
-			//Y -= 1;
+			
 			if (Y - 10 >= 0) {
 				if (document.getElementById(BName + (Y - 10)).innerHTML == "") {
 					document.getElementById(BName + (Y - 10)).innerHTML = Board[Y - 10];
@@ -482,6 +488,8 @@ function movePlayer(e) {
 				}
 			} else {
 				for (var i = X - 10; i < X + 11; i++) {
+					console.log(Player1.Y)
+					console.log(i +" and "+ (Y+11))
 					if (i >= 0 && Y - 10 >= 0 && i < XSize) {
 						document.getElementById(Y - 10 + Delimiter + i).style.display = '';
 						if (i >= 0 && Y + 11 < YSize && i < XSize) {
@@ -496,11 +504,14 @@ function movePlayer(e) {
 		if (Y + 1 < YSize && BoardOverlay[Y + 1][X] != 0) {
 			if(inMap){
 				Player1.Y+=1;
+				X = Player1.X;
+				Y = Player1.Y;
 			}
 			else{
 				Player1.Y2+=1;
+				X = Player1.X2;
+				Y = Player1.Y2;
 			}
-			//Y += 1;
 			if (Y + 10 < YSize) {
 				if (document.getElementById(BName + (Y + 10)).innerHTML == "") {
 					document.getElementById(BName + (Y + 10)).innerHTML = Board[Y + 10];
@@ -543,11 +554,14 @@ function movePlayer(e) {
 		if (X + 1 < XSize && BoardOverlay[Y][X + 1] != 0) {
 			if(inMap){
 				Player1.X+=1;
+				X = Player1.X;
+				Y = Player1.Y;
 			}
 			else{
 				Player1.X2+=1;
+				X = Player1.X2;
+				Y = Player1.Y2;
 			}
-			//X += 1;
 			document.getElementById(Y + Delimiter + X).src = "./Images/Player.png";
 			document.getElementById(Y + Delimiter + (X - 1)).src = "./Images/transparent.png";
 
@@ -585,11 +599,14 @@ function movePlayer(e) {
 		if (X - 1 >= 0 && BoardOverlay[Y][X - 1] != 0) {
 			if(inMap){
 				Player1.X-=1;
+				X = Player1.X;
+				Y = Player1.Y;
 			}
 			else{
 				Player1.X2-=1;
+				X = Player1.X2;
+				Y = Player1.Y2;
 			}
-			//X -= 1;
 			document.getElementById(Y + Delimiter + X).src = "./Images/Player.png";
 			document.getElementById(Y + Delimiter + (X + 1)).src = "./Images/transparent.png";
 			if (Y - 10 < 0) {

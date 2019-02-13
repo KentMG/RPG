@@ -74,9 +74,13 @@ addEventListener('message', (d) => {
 		}
 		//end of wall
 		else if (map.data[i] == 255 && map.data[i + 1] == 102 && map.data[i + 2] == 102) {
-			Board += ("<img src='./Images/wallEnd.png' class='Tile' id='" + row + Delimiter + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
-		}  else if(map.data[i] == 255 && map.data[i+1] == 255 && map.data[i + 2] == 255){
+			Board += ("<img src='./Images/wallEnd.png' class='Tile' id='" + row + Delimiter + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; "); 
+			rowContent.push(0);
+		}
+		//If nothing in map at pixel
+		else if(map.data[i] == 255 && map.data[i+1] == 255 && map.data[i + 2] == 255){
 			Board += ("<img src='./Images/transparent.png' class='Tile' id='" + row + Delimiter + (i / 4) % BoardWidth + "' style='display:none; width:30px; height:30px; ");
+			rowContent.push(1);
 		}else{
 			console.log(map.data[i])
 			console.log(map.data[i + 1])
@@ -88,8 +92,8 @@ addEventListener('message', (d) => {
 		}
 		//Water
 		else if (background.data[i] == 0 && background.data[i + 1] == 51 && background.data[i + 2] == 204) {
-			Board += ("background-image:url(./Images/ground.png);'/>");
-			rowContent.push(1);
+			Board += ("background-image:url(./Images/shallowWater.png);'/>");
+			//rowContent.push(1);
 		}
 		//Grass
 		else if(background.data[i]==0 && background.data[i+1] == 102 && background.data[i+2] == 0){
@@ -100,7 +104,6 @@ addEventListener('message', (d) => {
 			console.log(map.data[i + 2])
 		}
 	}
-
 	result.push(Board);
 	result.push(rowContent);
 	result.push(row)
